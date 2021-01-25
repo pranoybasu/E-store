@@ -5,7 +5,7 @@ const products = require('./data/products')
 const app = express()
 //message to get the api running
 app.get('/', (req, res) => {
-    res.send('API is running...')
+    res.send('API is running......')
 
 } )
 //route to /api/products to access default products
