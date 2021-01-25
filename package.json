@@ -1,0 +1,22 @@
+{
+  "name": "store",
+  "version": "1.0.0",
+  "description": "MERN stack project for university",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranoybasu/E-store.git"
+  },
+  "author": "Pranoy Basu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pranoybasu/E-store/issues"
+  },
+  "homepage": "https://github.com/pranoybasu/E-store#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
