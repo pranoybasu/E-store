@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import Rating from '../components/Rating';
+import Meta from '../components/Meta'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -62,6 +63,7 @@ const ProductScreen = ( { history, match } ) => {
          <Link className='btn btn-light my-3' to='/'>Go Back</Link>
          { loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
             <>
+            <Meta title={product.name} />
             <Row>
               <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid />
