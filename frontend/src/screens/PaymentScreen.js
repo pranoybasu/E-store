@@ -50,6 +50,7 @@ const PaymentScreen = ({ history }) => {
                         value='Stripe' 
                         onChange={(e) => setPaymentMethod(e.target.value)}>
                     </Form.Check> */}
+                    {/*Add razorpay too*/}
                     {/* <Form.Check 
                         type='radio' 
                         label='Cash on Delivery' 
