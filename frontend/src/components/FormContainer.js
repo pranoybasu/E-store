@@ -6,7 +6,16 @@ const FormContainer = ({ children }) => {
         <Container>
             <Row className='justify-content-md-center'>
                 <Col xs={12} md={6}>
-                    {children}
+                    <div style={{
+                        background: 'var(--bg-secondary)',
+                        border: '1px solid var(--border-color)',
+                        borderRadius: '12px',
+                        padding: '2rem',
+                        marginTop: '2rem',
+                        marginBottom: '2rem'
+                    }}>
+                        {children}
+                    </div>
                 </Col>
             </Row>
         </Container>

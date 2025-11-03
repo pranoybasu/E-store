@@ -52,11 +52,49 @@ const UserEditScreen = () => {
 
   return (
     <>
-      <Link to='/admin/userlist' className='btn btn-light my-3'>
+      <Link
+        to='/admin/userlist'
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          background: 'var(--bg-secondary)',
+          border: '1px solid var(--border-color)',
+          color: 'var(--text-primary)',
+          padding: '0.75rem 1.5rem',
+          borderRadius: '8px',
+          textDecoration: 'none',
+          fontWeight: '500',
+          transition: 'all 0.2s ease',
+          marginBottom: '2rem'
+        }}
+      >
+        <i className='fas fa-arrow-left' style={{ marginRight: '0.5rem' }}></i>
         Go Back
       </Link>
       <FormContainer>
-        <h1>Edit User</h1>
+        <div style={{
+          marginBottom: '2rem',
+          borderBottom: '2px solid var(--accent-primary)',
+          paddingBottom: '1rem'
+        }}>
+          <h1 style={{
+            fontSize: '2rem',
+            fontWeight: '600',
+            color: 'var(--text-primary)',
+            marginBottom: '0.5rem'
+          }}>
+            <i className='fas fa-user-edit' style={{ marginRight: '0.75rem', color: 'var(--accent-primary)' }}></i>
+            Edit User
+          </h1>
+          <p style={{
+            color: 'var(--text-secondary)',
+            fontSize: '0.95rem',
+            marginBottom: 0
+          }}>
+            Update user information and permissions
+          </p>
+        </div>
+
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
@@ -65,37 +103,84 @@ const UserEditScreen = () => {
           <Message variant='danger'>{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
-              <Form.Label>Name</Form.Label>
+            <Form.Group controlId='name' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Name</Form.Label>
               <Form.Control
                 type='name'
                 placeholder='Enter name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='email'>
-              <Form.Label>Email Address</Form.Label>
+            <Form.Group controlId='email' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Email Address</Form.Label>
               <Form.Control
                 type='email'
                 placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='isadmin'>
-              <Form.Check
-                type='checkbox'
-                label='Is Admin'
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              ></Form.Check>
+            <Form.Group controlId='isadmin' style={{ marginBottom: '2rem' }}>
+              <div style={{
+                background: 'var(--bg-tertiary)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '8px',
+                padding: '1rem'
+              }}>
+                <Form.Check
+                  type='checkbox'
+                  label='Is Admin'
+                  checked={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.checked)}
+                  style={{
+                    color: 'var(--text-primary)'
+                  }}
+                />
+              </div>
             </Form.Group>
 
-            <Button type='submit' variant='primary'>
-              Update
+            <Button
+              type='submit'
+              style={{
+                background: 'var(--accent-primary)',
+                border: 'none',
+                color: 'white',
+                padding: '0.875rem 2rem',
+                borderRadius: '8px',
+                fontSize: '1rem',
+                fontWeight: '500',
+                width: '100%',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 2px 8px rgba(0, 113, 227, 0.3)'
+              }}
+            >
+              <i className='fas fa-save' style={{ marginRight: '0.5rem' }}></i>
+              Update User
             </Button>
           </Form>
         )}

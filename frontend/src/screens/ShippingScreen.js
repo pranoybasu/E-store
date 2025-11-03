@@ -39,34 +39,156 @@ const ShippingScreen = () => {
     return (
         <FormContainer>
             <CheckoutSteps step1 step2/>
-            <h1>Shipping</h1>
-            <Form onSubmit={submitHandler}>
-
-                <Form.Group controlId='address'>
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control type='text' placeholder='Enter Address' value={address} required onChange={(e) => setAddress(e.target.value)}></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId='city'>
-                        <Form.Label>City</Form.Label>
-                        <Form.Control type='text' placeholder='Enter City' value={city} required onChange={(e) => setCity(e.target.value)}></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId='postalCode'>
-                        <Form.Label>Postal Code</Form.Label>
-                        <Form.Control type='text' placeholder='Enter Postal Code' value={postalCode} required onChange={(e) => setPostalCode(e.target.value)}></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId='country'>
-                        <Form.Label>Country</Form.Label>
-                        <Form.Control type='text' placeholder='Enter Country' value={country} required onChange={(e) => setCountry(e.target.value)}></Form.Control>
-                </Form.Group>
-
-                <Button type='submit' variant='primary'>
-                    Continue
-                </Button>
+            <div style={{
+                backgroundColor: 'var(--bg-secondary)',
+                borderRadius: '12px',
+                padding: '2rem',
+                border: '1px solid var(--border-color)'
+            }}>
+                <h1 style={{
+                    color: 'var(--text-primary)',
+                    fontSize: '1.75rem',
+                    fontWeight: '600',
+                    marginBottom: '0.5rem'
+                }}>
+                    Shipping Address
+                </h1>
+                <p style={{
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.95rem',
+                    marginBottom: '2rem'
+                }}>
+                    Enter your shipping details
+                </p>
                 
-            </Form>
+                <Form onSubmit={submitHandler}>
+                    <Form.Group controlId='address' style={{ marginBottom: '1.5rem' }}>
+                        <Form.Label style={{
+                            color: 'var(--text-primary)',
+                            fontWeight: '500',
+                            marginBottom: '0.5rem'
+                        }}>
+                            Address
+                        </Form.Label>
+                        <Form.Control
+                            type='text'
+                            placeholder='Enter Address'
+                            value={address}
+                            required
+                            onChange={(e) => setAddress(e.target.value)}
+                            style={{
+                                backgroundColor: 'var(--bg-tertiary)',
+                                border: '1px solid var(--border-color)',
+                                borderRadius: '8px',
+                                color: 'var(--text-primary)',
+                                padding: '0.75rem',
+                                fontSize: '1rem'
+                            }}
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId='city' style={{ marginBottom: '1.5rem' }}>
+                        <Form.Label style={{
+                            color: 'var(--text-primary)',
+                            fontWeight: '500',
+                            marginBottom: '0.5rem'
+                        }}>
+                            City
+                        </Form.Label>
+                        <Form.Control
+                            type='text'
+                            placeholder='Enter City'
+                            value={city}
+                            required
+                            onChange={(e) => setCity(e.target.value)}
+                            style={{
+                                backgroundColor: 'var(--bg-tertiary)',
+                                border: '1px solid var(--border-color)',
+                                borderRadius: '8px',
+                                color: 'var(--text-primary)',
+                                padding: '0.75rem',
+                                fontSize: '1rem'
+                            }}
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId='postalCode' style={{ marginBottom: '1.5rem' }}>
+                        <Form.Label style={{
+                            color: 'var(--text-primary)',
+                            fontWeight: '500',
+                            marginBottom: '0.5rem'
+                        }}>
+                            Postal Code
+                        </Form.Label>
+                        <Form.Control
+                            type='text'
+                            placeholder='Enter Postal Code'
+                            value={postalCode}
+                            required
+                            onChange={(e) => setPostalCode(e.target.value)}
+                            style={{
+                                backgroundColor: 'var(--bg-tertiary)',
+                                border: '1px solid var(--border-color)',
+                                borderRadius: '8px',
+                                color: 'var(--text-primary)',
+                                padding: '0.75rem',
+                                fontSize: '1rem'
+                            }}
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId='country' style={{ marginBottom: '2rem' }}>
+                        <Form.Label style={{
+                            color: 'var(--text-primary)',
+                            fontWeight: '500',
+                            marginBottom: '0.5rem'
+                        }}>
+                            Country
+                        </Form.Label>
+                        <Form.Control
+                            type='text'
+                            placeholder='Enter Country'
+                            value={country}
+                            required
+                            onChange={(e) => setCountry(e.target.value)}
+                            style={{
+                                backgroundColor: 'var(--bg-tertiary)',
+                                border: '1px solid var(--border-color)',
+                                borderRadius: '8px',
+                                color: 'var(--text-primary)',
+                                padding: '0.75rem',
+                                fontSize: '1rem'
+                            }}
+                        />
+                    </Form.Group>
+
+                    <Button
+                        type='submit'
+                        variant='primary'
+                        style={{
+                            backgroundColor: 'var(--accent-primary)',
+                            border: 'none',
+                            borderRadius: '8px',
+                            color: '#ffffff',
+                            padding: '0.75rem 2rem',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            width: '100%',
+                            transition: 'all 0.3s ease'
+                        }}
+                        onMouseOver={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-2px)'
+                            e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 113, 227, 0.3)'
+                        }}
+                        onMouseOut={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)'
+                            e.currentTarget.style.boxShadow = 'none'
+                        }}
+                    >
+                        Continue to Payment
+                    </Button>
+                </Form>
+            </div>
         </FormContainer>
     )
 }

@@ -97,11 +97,49 @@ const ProductEditScreen = () => {
 
   return (
     <>
-      <Link to='/admin/productlist' className='btn btn-light my-3'>
+      <Link
+        to='/admin/productlist'
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          background: 'var(--bg-secondary)',
+          border: '1px solid var(--border-color)',
+          color: 'var(--text-primary)',
+          padding: '0.75rem 1.5rem',
+          borderRadius: '8px',
+          textDecoration: 'none',
+          fontWeight: '500',
+          transition: 'all 0.2s ease',
+          marginBottom: '2rem'
+        }}
+      >
+        <i className='fas fa-arrow-left' style={{ marginRight: '0.5rem' }}></i>
         Go Back
       </Link>
       <FormContainer>
-        <h1>Edit Product</h1>
+        <div style={{
+          marginBottom: '2rem',
+          borderBottom: '2px solid var(--accent-primary)',
+          paddingBottom: '1rem'
+        }}>
+          <h1 style={{
+            fontSize: '2rem',
+            fontWeight: '600',
+            color: 'var(--text-primary)',
+            marginBottom: '0.5rem'
+          }}>
+            <i className='fas fa-edit' style={{ marginRight: '0.75rem', color: 'var(--accent-primary)' }}></i>
+            Edit Product
+          </h1>
+          <p style={{
+            color: 'var(--text-secondary)',
+            fontSize: '0.95rem',
+            marginBottom: 0
+          }}>
+            Update product information and details
+          </p>
+        </div>
+
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
@@ -110,85 +148,185 @@ const ProductEditScreen = () => {
           <Message variant='danger'>{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
-              <Form.Label>Name</Form.Label>
+            <Form.Group controlId='name' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Name</Form.Label>
               <Form.Control
                 type='name'
                 placeholder='Enter name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='price'>
-              <Form.Label>Price</Form.Label>
+            <Form.Group controlId='price' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Price</Form.Label>
               <Form.Control
                 type='number'
                 placeholder='Enter price'
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='image'>
-              <Form.Label>Image</Form.Label>
+            <Form.Group controlId='image' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Image URL</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter image url'
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px',
+                  marginBottom: '0.75rem'
+                }}
               ></Form.Control>
-              <Form.File
+              <input
+                type='file'
                 id='image-file'
-                label='Choose File'
-                custom
                 onChange={uploadFileHandler}
-              ></Form.File>
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px',
+                  width: '100%'
+                }}
+              />
               {uploading && <Loader />}
             </Form.Group>
 
-            <Form.Group controlId='brand'>
-              <Form.Label>Brand</Form.Label>
+            <Form.Group controlId='brand' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Brand</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter brand'
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='countInStock'>
-              <Form.Label>Count In Stock</Form.Label>
+            <Form.Group controlId='countInStock' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Count In Stock</Form.Label>
               <Form.Control
                 type='number'
                 placeholder='Enter countInStock'
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='category'>
-              <Form.Label>Category</Form.Label>
+            <Form.Group controlId='category' style={{ marginBottom: '1.5rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Category</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter category'
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='description'>
-              <Form.Label>Description</Form.Label>
+            <Form.Group controlId='description' style={{ marginBottom: '2rem' }}>
+              <Form.Label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem'
+              }}>Description</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px'
+                }}
               ></Form.Control>
             </Form.Group>
 
-            <Button type='submit' variant='primary'>
-              Update
+            <Button
+              type='submit'
+              style={{
+                background: 'var(--accent-primary)',
+                border: 'none',
+                color: 'white',
+                padding: '0.875rem 2rem',
+                borderRadius: '8px',
+                fontSize: '1rem',
+                fontWeight: '500',
+                width: '100%',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 2px 8px rgba(0, 113, 227, 0.3)'
+              }}
+            >
+              <i className='fas fa-save' style={{ marginRight: '0.5rem' }}></i>
+              Update Product
             </Button>
           </Form>
         )}

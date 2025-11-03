@@ -45,8 +45,13 @@ app.use(express.json())
     res.send(process.env.PAYPAL_CLIENT_ID)
   )
 
-  const __dirname = path.resolve()
+const __dirname = path.resolve()
+
+// Serve uploaded images
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
+// Serve frontend static images from public folder
+app.use('/images', express.static(path.join(__dirname, '/frontend/public/images')))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')))

@@ -52,51 +52,114 @@ useEffect(() => {
   }
 
   return (
-    <>
+    <div style={{ padding: '2rem 0', minHeight: '70vh' }}>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>Shipping</h2>
-              <p>
-                <strong>Address:</strong>
+            <ListGroup.Item style={{
+              backgroundColor: 'var(--bg-secondary)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              marginBottom: '1rem'
+            }}>
+              <h2 style={{
+                color: 'var(--text-primary)',
+                fontSize: '1.25rem',
+                fontWeight: '600',
+                marginBottom: '1rem'
+              }}>
+                <i className="fas fa-shipping-fast" style={{ marginRight: '0.75rem', color: 'var(--accent-primary)' }}></i>
+                Shipping
+              </h2>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '0' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>Address: </strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
                 {cart.shippingAddress.postalCode},{' '}
                 {cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
 
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <strong>Method: </strong>
-              {cart.paymentMethod}
+            <ListGroup.Item style={{
+              backgroundColor: 'var(--bg-secondary)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              marginBottom: '1rem'
+            }}>
+              <h2 style={{
+                color: 'var(--text-primary)',
+                fontSize: '1.25rem',
+                fontWeight: '600',
+                marginBottom: '1rem'
+              }}>
+                <i className="fas fa-credit-card" style={{ marginRight: '0.75rem', color: 'var(--accent-primary)' }}></i>
+                Payment Method
+              </h2>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '0' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>Method: </strong>
+                {cart.paymentMethod}
+              </p>
             </ListGroup.Item>
 
-            <ListGroup.Item>
-              <h2>Order Items</h2>
+            <ListGroup.Item style={{
+              backgroundColor: 'var(--bg-secondary)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              marginBottom: '1rem'
+            }}>
+              <h2 style={{
+                color: 'var(--text-primary)',
+                fontSize: '1.25rem',
+                fontWeight: '600',
+                marginBottom: '1.5rem'
+              }}>
+                <i className="fas fa-shopping-bag" style={{ marginRight: '0.75rem', color: 'var(--accent-primary)' }}></i>
+                Order Items
+              </h2>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
                 <ListGroup variant='flush'>
                   {cart.cartItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row>
+                    <ListGroup.Item
+                      key={index}
+                      style={{
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderBottom: index < cart.cartItems.length - 1 ? '1px solid var(--border-color)' : 'none',
+                        padding: '1rem 0'
+                      }}
+                    >
+                      <Row className='align-items-center'>
                         <Col md={1}>
                           <Image
                             src={item.image}
                             alt={item.name}
                             fluid
                             rounded
+                            style={{
+                              borderRadius: '8px',
+                              border: '1px solid var(--border-color)'
+                            }}
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>
+                          <Link
+                            to={`/product/${item.product}`}
+                            style={{
+                              color: 'var(--text-primary)',
+                              textDecoration: 'none',
+                              fontWeight: '500'
+                            }}
+                          >
                             {item.name}
                           </Link>
                         </Col>
-                        <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                        <Col md={4} style={{ color: 'var(--text-secondary)' }}>
+                          {item.qty} x ${item.price} = <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>${(item.qty * item.price).toFixed(2)}</span>
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -107,45 +170,121 @@ useEffect(() => {
           </ListGroup>
         </Col>
         <Col md={4}>
-          <Card>
+          <Card style={{
+            backgroundColor: 'var(--bg-secondary)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            position: 'sticky',
+            top: '2rem'
+          }}>
             <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <h2>Order Summary</h2>
+              <ListGroup.Item style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '1.5rem',
+                borderBottom: '1px solid var(--border-color)'
+              }}>
+                <h2 style={{
+                  color: 'var(--text-primary)',
+                  fontSize: '1.5rem',
+                  fontWeight: '600',
+                  marginBottom: '0'
+                }}>
+                  Order Summary
+                </h2>
               </ListGroup.Item>
-              <ListGroup.Item>
+              
+              <ListGroup.Item style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '1rem 1.5rem'
+              }}>
                 <Row>
-                  <Col>Items</Col>
-                  <Col>${cart.itemsPrice}</Col>
+                  <Col style={{ color: 'var(--text-secondary)' }}>Items</Col>
+                  <Col style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              
+              <ListGroup.Item style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '1rem 1.5rem'
+              }}>
                 <Row>
-                  <Col>Shipping</Col>
-                  <Col>${cart.shippingPrice}</Col>
+                  <Col style={{ color: 'var(--text-secondary)' }}>Shipping</Col>
+                  <Col style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              
+              <ListGroup.Item style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '1rem 1.5rem'
+              }}>
                 <Row>
-                  <Col>Tax</Col>
-                  <Col>${cart.taxPrice}</Col>
+                  <Col style={{ color: 'var(--text-secondary)' }}>Tax</Col>
+                  <Col style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              
+              <ListGroup.Item style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '1rem 1.5rem',
+                borderTop: '1px solid var(--border-color)',
+                borderBottom: '1px solid var(--border-color)'
+              }}>
                 <Row>
-                  <Col>Total</Col>
-                  <Col>${cart.totalPrice}</Col>
+                  <Col style={{ color: 'var(--text-primary)', fontSize: '1.1rem', fontWeight: '600' }}>Total</Col>
+                  <Col style={{ color: 'var(--accent-primary)', fontSize: '1.5rem', fontWeight: '700', textAlign: 'right' }}>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-                  <ListGroup.Item>
-                    {error && <Message variant='danger'>{error}</Message>}
-                  </ListGroup.Item>
-              <ListGroup.Item>
+              
+              {error && (
+                <ListGroup.Item style={{
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  padding: '1rem 1.5rem'
+                }}>
+                  <Message variant='danger'>{error}</Message>
+                </ListGroup.Item>
+              )}
+              
+              <ListGroup.Item style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '1.5rem'
+              }}>
                 <Button
                   type='button'
                   className='btn-block'
-                  disabled={cart.cartItems === 0}
+                  disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
+                  style={{
+                    backgroundColor: cart.cartItems.length === 0 ? 'var(--bg-tertiary)' : 'var(--accent-primary)',
+                    border: 'none',
+                    borderRadius: '8px',
+                    color: '#ffffff',
+                    padding: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    width: '100%',
+                    transition: 'all 0.3s ease',
+                    cursor: cart.cartItems.length === 0 ? 'not-allowed' : 'pointer',
+                    opacity: cart.cartItems.length === 0 ? 0.5 : 1
+                  }}
+                  onMouseOver={(e) => {
+                    if (cart.cartItems.length > 0) {
+                      e.currentTarget.style.transform = 'translateY(-2px)'
+                      e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 113, 227, 0.3)'
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
                 >
+                  <i className="fas fa-check-circle" style={{ marginRight: '0.5rem' }}></i>
                   Place Order
                 </Button>
               </ListGroup.Item>
@@ -153,7 +292,7 @@ useEffect(() => {
           </Card>
         </Col>
       </Row>
-    </>
+    </div>
   )
 }
 

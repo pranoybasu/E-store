@@ -92,25 +92,51 @@ const OrderScreen = () => {
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
-    <>
-      <h1>Order {order._id}</h1>
+    <div style={{ padding: '2rem 0' }}>
+      <div style={{ marginBottom: '2rem' }}>
+        <h1 style={{ color: 'var(--text-primary)', fontSize: '2rem', marginBottom: '0.5rem' }}>
+          Order Details
+        </h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
+          Order ID: {order._id}
+        </p>
+      </div>
+
       <Row>
         <Col md={8}>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>Shipping</h2>
-              <p>
-                <strong>Name: </strong> {order.user.name}
+          {/* Shipping Section */}
+          <div style={{
+            background: 'var(--bg-secondary)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '1.5rem',
+            marginBottom: '1.5rem'
+          }}>
+            <h2 style={{
+              color: 'var(--text-primary)',
+              fontSize: '1.25rem',
+              marginBottom: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <i className='fas fa-shipping-fast' style={{ color: 'var(--accent-primary)' }}></i>
+              Shipping Information
+            </h2>
+            <div style={{ color: 'var(--text-secondary)', lineHeight: '1.8' }}>
+              <p style={{ marginBottom: '0.5rem' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>Name:</strong> {order.user.name}
               </p>
-              <p>
-                <strong>Email: </strong>{' '}
-                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              <p style={{ marginBottom: '0.5rem' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>Email:</strong>{' '}
+                <a href={`mailto:${order.user.email}`} style={{ color: 'var(--accent-primary)', textDecoration: 'none' }}>
+                  {order.user.email}
+                </a>
               </p>
-              <p>
-                <strong>Address:</strong>
+              <p style={{ marginBottom: '1rem' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>Address:</strong>{' '}
                 {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
-                {order.shippingAddress.postalCode},{' '}
-                {order.shippingAddress.country}
+                {order.shippingAddress.postalCode}, {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
                 <Message variant='success'>
@@ -119,110 +145,210 @@ const OrderScreen = () => {
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
               )}
-            </ListGroup.Item>
+            </div>
+          </div>
 
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <p>
-                <strong>Method: </strong>
-                {order.paymentMethod}
+          {/* Payment Section */}
+          <div style={{
+            background: 'var(--bg-secondary)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '1.5rem',
+            marginBottom: '1.5rem'
+          }}>
+            <h2 style={{
+              color: 'var(--text-primary)',
+              fontSize: '1.25rem',
+              marginBottom: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <i className='fas fa-credit-card' style={{ color: 'var(--accent-primary)' }}></i>
+              Payment Method
+            </h2>
+            <div style={{ color: 'var(--text-secondary)' }}>
+              <p style={{ marginBottom: '1rem' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>Method:</strong> {order.paymentMethod}
               </p>
               {order.isPaid ? (
                 <Message variant='success'>Paid on {order.paidAt}</Message>
               ) : (
                 <Message variant='danger'>Not Paid</Message>
               )}
-            </ListGroup.Item>
+            </div>
+          </div>
 
-            <ListGroup.Item>
-              <h2>Order Items</h2>
-              {order.orderItems.length === 0 ? (
-                <Message>Order is empty</Message>
-              ) : (
-                <ListGroup variant='flush'>
-                  {order.orderItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row>
-                        <Col md={1}>
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fluid
-                            rounded
-                          />
-                        </Col>
-                        <Col>
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>
-                        </Col>
-                        <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              )}
-            </ListGroup.Item>
-          </ListGroup>
+          {/* Order Items Section */}
+          <div style={{
+            background: 'var(--bg-secondary)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '12px',
+            padding: '1.5rem'
+          }}>
+            <h2 style={{
+              color: 'var(--text-primary)',
+              fontSize: '1.25rem',
+              marginBottom: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <i className='fas fa-shopping-bag' style={{ color: 'var(--accent-primary)' }}></i>
+              Order Items
+            </h2>
+            {order.orderItems.length === 0 ? (
+              <Message>Order is empty</Message>
+            ) : (
+              <div>
+                {order.orderItems.map((item, index) => (
+                  <div key={index} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '1rem 0',
+                    borderBottom: index < order.orderItems.length - 1 ? '1px solid var(--border-color)' : 'none'
+                  }}>
+                    <div style={{ width: '80px', marginRight: '1rem' }}>
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fluid
+                        rounded
+                        style={{ borderRadius: '8px' }}
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <Link
+                        to={`/product/${item.product}`}
+                        style={{
+                          color: 'var(--text-primary)',
+                          textDecoration: 'none',
+                          fontWeight: '500'
+                        }}
+                      >
+                        {item.name}
+                      </Link>
+                    </div>
+                    <div style={{
+                      color: 'var(--text-secondary)',
+                      textAlign: 'right',
+                      minWidth: '150px'
+                    }}>
+                      {item.qty} x ${item.price} = <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>${item.qty * item.price}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </Col>
+
         <Col md={4}>
-          <Card>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <h2>Order Summary</h2>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Items</Col>
-                  <Col>${order.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping</Col>
-                  <Col>${order.shippingPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Tax</Col>
-                  <Col>${order.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Total</Col>
-                  <Col>${order.totalPrice}</Col>
-                </Row>
-              </ListGroup.Item>
+          <div style={{ position: 'sticky', top: '2rem' }}>
+            <div style={{
+              background: 'var(--bg-secondary)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '12px',
+              padding: '1.5rem'
+            }}>
+              <h2 style={{
+                color: 'var(--text-primary)',
+                fontSize: '1.25rem',
+                marginBottom: '1.5rem',
+                textAlign: 'center'
+              }}>
+                Order Summary
+              </h2>
+              
+              <div style={{ marginBottom: '1rem' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '0.75rem 0',
+                  borderBottom: '1px solid var(--border-color)',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <span>Items</span>
+                  <span>${order.itemsPrice}</span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '0.75rem 0',
+                  borderBottom: '1px solid var(--border-color)',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <span>Shipping</span>
+                  <span>${order.shippingPrice}</span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '0.75rem 0',
+                  borderBottom: '1px solid var(--border-color)',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <span>Tax</span>
+                  <span>${order.taxPrice}</span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '1rem 0',
+                  fontSize: '1.25rem',
+                  fontWeight: '600',
+                  color: 'var(--text-primary)'
+                }}>
+                  <span>Total</span>
+                  <span style={{ color: 'var(--accent-primary)' }}>${order.totalPrice}</span>
+                </div>
+              </div>
+
               {!order.isPaid && (
-                <ListGroup.Item>
+                <div style={{ marginTop: '1.5rem' }}>
                   {loadingPay && <Loader />}
                   {!sdkReady ? <Loader /> : (
                     <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
                   )}
-
-                </ListGroup.Item>
+                </div>
               )}
+
               {loadingDeliver && <Loader />}
               {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
-                <ListGroup.Item>
-                  <Button
-                    type='button'
-                    className='btn btn-block'
-                    onClick={deliverHandler}
-                  >
-                    Mark As Delivered
-                  </Button>
-                </ListGroup.Item>
+                <Button
+                  type='button'
+                  onClick={deliverHandler}
+                  style={{
+                    width: '100%',
+                    marginTop: '1.5rem',
+                    padding: '0.875rem',
+                    background: 'var(--accent-success)',
+                    border: 'none',
+                    borderRadius: '8px',
+                    color: 'white',
+                    fontWeight: '600',
+                    fontSize: '1rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-2px)'
+                    e.target.style.boxShadow = '0 8px 20px rgba(48, 209, 88, 0.3)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0)'
+                    e.target.style.boxShadow = 'none'
+                  }}
+                >
+                  <i className='fas fa-check-circle' style={{ marginRight: '0.5rem' }}></i>
+                  Mark As Delivered
+                </Button>
               )}
-            </ListGroup>
-          </Card>
+            </div>
+          </div>
         </Col>
       </Row>
-    </>
+    </div>
   )
 }
 

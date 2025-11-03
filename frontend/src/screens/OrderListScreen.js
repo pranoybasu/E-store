@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -24,59 +24,177 @@ const OrderListScreen = ({ history }) => {
   }, [dispatch, history, userInfo])
 
   return (
-    <>
-      <h1>Orders</h1>
+    <Container style={{ padding: '2rem 0' }}>
+      <div style={{
+        marginBottom: '2rem',
+        borderBottom: '2px solid var(--accent-primary)',
+        paddingBottom: '1rem'
+      }}>
+        <h1 style={{
+          fontSize: '2rem',
+          fontWeight: '600',
+          color: 'var(--text-primary)',
+          marginBottom: '0.5rem'
+        }}>
+          <i className='fas fa-shopping-bag' style={{ marginRight: '0.75rem', color: 'var(--accent-primary)' }}></i>
+          Order Management
+        </h1>
+        <p style={{
+          color: 'var(--text-secondary)',
+          fontSize: '0.95rem',
+          marginBottom: 0
+        }}>
+          View and manage all customer orders
+        </p>
+      </div>
+
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className='table-sm'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.user && order.user.name}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>${order.totalPrice}</td>
-                <td>
-                  {order.isPaid ? (
-                    order.paidAt.substring(0, 10)
-                  ) : (
-                    <i className='fas fa-times' style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  {order.isDelivered ? (
-                    order.deliveredAt.substring(0, 10)
-                  ) : (
-                    <i className='fas fa-times' style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/order/${order._id}`}>
-                    <Button variant='light' className='btn-sm'>
-                      Details
-                    </Button>
-                  </LinkContainer>
-                </td>
+        <div style={{
+          background: 'var(--bg-secondary)',
+          border: '1px solid var(--border-color)',
+          borderRadius: '12px',
+          overflow: 'hidden'
+        }}>
+          <Table responsive className='table-sm' style={{ marginBottom: 0 }}>
+            <thead>
+              <tr style={{
+                background: 'var(--bg-tertiary)',
+                borderBottom: '2px solid var(--border-color)'
+              }}>
+                <th style={{
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>ID</th>
+                <th style={{
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>USER</th>
+                <th style={{
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>DATE</th>
+                <th style={{
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>TOTAL</th>
+                <th style={{
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>PAID</th>
+                <th style={{
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>DELIVERED</th>
+                <th style={{
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>ACTIONS</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order._id} style={{
+                  background: 'var(--bg-secondary)',
+                  borderBottom: '1px solid var(--border-color)'
+                }}>
+                  <td style={{
+                    padding: '1rem',
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.85rem',
+                    fontFamily: 'monospace'
+                  }}>{order._id}</td>
+                  <td style={{
+                    padding: '1rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: '500'
+                  }}>{order.user && order.user.name}</td>
+                  <td style={{
+                    padding: '1rem',
+                    color: 'var(--text-secondary)'
+                  }}>{order.createdAt.substring(0, 10)}</td>
+                  <td style={{
+                    padding: '1rem',
+                    color: 'var(--accent-success)',
+                    fontWeight: '600',
+                    fontSize: '1rem'
+                  }}>${order.totalPrice}</td>
+                  <td style={{ padding: '1rem' }}>
+                    {order.isPaid ? (
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        <i className='fas fa-check' style={{ color: 'var(--accent-success)', marginRight: '0.5rem' }}></i>
+                        {order.paidAt.substring(0, 10)}
+                      </span>
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'var(--accent-danger)', fontSize: '1.1rem' }}></i>
+                    )}
+                  </td>
+                  <td style={{ padding: '1rem' }}>
+                    {order.isDelivered ? (
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        <i className='fas fa-check' style={{ color: 'var(--accent-success)', marginRight: '0.5rem' }}></i>
+                        {order.deliveredAt.substring(0, 10)}
+                      </span>
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'var(--accent-danger)', fontSize: '1.1rem' }}></i>
+                    )}
+                  </td>
+                  <td style={{ padding: '1rem' }}>
+                    <LinkContainer to={`/order/${order._id}`}>
+                      <Button
+                        className='btn-sm'
+                        style={{
+                          background: 'var(--bg-tertiary)',
+                          border: '1px solid var(--border-color)',
+                          color: 'var(--text-primary)',
+                          padding: '0.4rem 0.8rem',
+                          borderRadius: '6px',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        <i className='fas fa-eye' style={{ marginRight: '0.3rem' }}></i>
+                        Details
+                      </Button>
+                    </LinkContainer>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       )}
-    </>
+    </Container>
   )
 }
 

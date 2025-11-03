@@ -29,47 +29,93 @@ const PaymentScreen = () => {
     return (
         <FormContainer>
             <CheckoutSteps step1 step2 step3/>
-            <h1>Payment Method</h1>
-            <Form onSubmit={submitHandler}>
-
-                <Form.Group>
-                    <Form.Label as='legend'>Select Method</Form.Label>
-                <Col>
-                    <Form.Check 
-                        type='radio' 
-                        label='PayPal or Credit Card' 
-                        id='PayPal' 
-                        name='paymentMethod' 
-                        value='PayPal' 
-                        checked 
-                        onChange={(e) => setPaymentMethod(e.target.value)}>
-                    </Form.Check>
-                    {/* <Form.Check 
-                        type='radio' 
-                        label='Stripe' 
-                        id='Stripe' 
-                        name='paymentMethod' 
-                        value='Stripe' 
-                        onChange={(e) => setPaymentMethod(e.target.value)}>
-                    </Form.Check> */}
-                    {/*Add razorpay too*/}
-                    {/* <Form.Check 
-                        type='radio' 
-                        label='Cash on Delivery' 
-                        id='COD' 
-                        name='paymentMethod' 
-                        value='Cash on Delivery' 
-                        checked 
-                        onChange={(e) => setPaymentMethod(e.target.value)}>
-                    </Form.Check> */}
-                    {/* Add more check methods for more payments  */}
-                </Col>
-                </Form.Group>
-                <Button type='submit' variant='primary'>
-                    Continue
-                </Button>
+            <div style={{
+                backgroundColor: 'var(--bg-secondary)',
+                borderRadius: '12px',
+                padding: '2rem',
+                border: '1px solid var(--border-color)'
+            }}>
+                <h1 style={{
+                    color: 'var(--text-primary)',
+                    fontSize: '1.75rem',
+                    fontWeight: '600',
+                    marginBottom: '0.5rem'
+                }}>
+                    Payment Method
+                </h1>
+                <p style={{
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.95rem',
+                    marginBottom: '2rem'
+                }}>
+                    Choose your preferred payment method
+                </p>
                 
-            </Form>
+                <Form onSubmit={submitHandler}>
+                    <Form.Group style={{ marginBottom: '2rem' }}>
+                        <Form.Label
+                            as='legend'
+                            style={{
+                                color: 'var(--text-primary)',
+                                fontWeight: '500',
+                                marginBottom: '1rem'
+                            }}
+                        >
+                            Select Method
+                        </Form.Label>
+                        <Col>
+                            <div style={{
+                                backgroundColor: 'var(--bg-tertiary)',
+                                border: '1px solid var(--border-color)',
+                                borderRadius: '8px',
+                                padding: '1rem',
+                                marginBottom: '1rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease'
+                            }}>
+                                <Form.Check
+                                    type='radio'
+                                    label='PayPal or Credit Card'
+                                    id='PayPal'
+                                    name='paymentMethod'
+                                    value='PayPal'
+                                    checked
+                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                    style={{
+                                        color: 'var(--text-primary)'
+                                    }}
+                                />
+                            </div>
+                        </Col>
+                    </Form.Group>
+                    
+                    <Button
+                        type='submit'
+                        variant='primary'
+                        style={{
+                            backgroundColor: 'var(--accent-primary)',
+                            border: 'none',
+                            borderRadius: '8px',
+                            color: '#ffffff',
+                            padding: '0.75rem 2rem',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            width: '100%',
+                            transition: 'all 0.3s ease'
+                        }}
+                        onMouseOver={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-2px)'
+                            e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 113, 227, 0.3)'
+                        }}
+                        onMouseOut={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)'
+                            e.currentTarget.style.boxShadow = 'none'
+                        }}
+                    >
+                        Continue to Review Order
+                    </Button>
+                </Form>
+            </div>
         </FormContainer>
     )
 }
