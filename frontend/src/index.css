@@ -357,6 +357,71 @@ select.form-control {
   color: var(--accent-primary) !important;
 }
 
+/* Navbar Dropdown Styling */
+.nav-dropdown .dropdown-toggle {
+  color: var(--text-primary) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.nav-dropdown .dropdown-toggle:hover,
+.nav-dropdown .dropdown-toggle:focus {
+  background: var(--bg-tertiary) !important;
+  border-radius: var(--radius-sm);
+}
+
+.nav-dropdown .dropdown-toggle::after {
+  margin-left: 0.5rem;
+  border-top-color: var(--text-secondary);
+}
+
+.nav-dropdown .dropdown-menu {
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-primary) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  min-width: 200px;
+}
+
+.nav-dropdown .dropdown-item {
+  color: var(--text-primary) !important;
+  background: var(--bg-tertiary) !important;
+  padding: 0.75rem 1rem;
+  transition: all var(--transition-fast);
+  border: none !important;
+}
+
+.nav-dropdown .dropdown-item:hover,
+.nav-dropdown .dropdown-item:focus {
+  background: var(--accent-primary) !important;
+  color: white !important;
+}
+
+.nav-dropdown .dropdown-divider {
+  border-top: 1px solid var(--border-primary);
+  margin: 0.5rem 0;
+}
+
+/* Navbar Toggle Button */
+.navbar-toggler {
+  border-color: var(--border-primary) !important;
+  background: var(--bg-tertiary) !important;
+  padding: 0.5rem 0.75rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 113, 227, 0.25);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
 /* ============================================
    FOOTER
    ============================================ */
@@ -752,7 +817,180 @@ footer p {
 }
 
 /* ============================================
-   ANIMATIONS
+   CAROUSEL
+   ============================================ */
+
+/* Carousel Container */
+.carousel {
+  background: var(--bg-secondary) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-primary) !important;
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+.carousel-inner {
+  border-radius: var(--radius-md) !important;
+}
+
+.carousel-item {
+  background: var(--bg-tertiary) !important;
+  height: 400px;
+}
+
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px !important;
+  height: 50px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: rgba(26, 26, 26, 0.8) !important;
+  border-radius: 50% !important;
+  border: 1px solid var(--border-primary) !important;
+  opacity: 0.8 !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.carousel-control-prev {
+  left: 20px !important;
+}
+
+.carousel-control-next {
+  right: 20px !important;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1 !important;
+  background: rgba(0, 113, 227, 0.9) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 24px !important;
+  height: 24px !important;
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  bottom: 20px !important;
+  margin-bottom: 0 !important;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  margin: 0 6px !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.carousel-indicators .active {
+  background-color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* Carousel Caption */
+.carousel-caption {
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%) !important;
+  padding-bottom: 3rem !important;
+  padding-top: 4rem !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  text-align: center !important;
+}
+
+.carousel-caption h2,
+.carousel-caption h3 {
+  color: var(--text-primary) !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7) !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.carousel-caption p {
+  color: var(--accent-primary) !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7) !important;
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
+}
+
+/* Carousel Image Container */
+.carousel-item img {
+  max-height: 400px !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  margin: 0 auto !important;
+}
+
+/* Responsive Carousel */
+@media (max-width: 768px) {
+  .carousel-item {
+    height: 300px;
+  }
+  
+  .carousel-item img {
+    max-height: 300px !important;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .carousel-control-prev {
+    left: 10px !important;
+  }
+  
+  .carousel-control-next {
+    right: 10px !important;
+  }
+  
+  .carousel-caption h2,
+  .carousel-caption h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  .carousel-caption p {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    height: 250px;
+  }
+  
+  .carousel-item img {
+    max-height: 250px !important;
+  }
+  
+  .carousel-caption {
+    padding-bottom: 2rem !important;
+    padding-top: 3rem !important;
+  }
+  
+  .carousel-caption h2,
+  .carousel-caption h3 {
+    font-size: 1rem !important;
+  }
+  
+  .carousel-caption p {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
    ============================================ */
 
 @keyframes fadeIn {
