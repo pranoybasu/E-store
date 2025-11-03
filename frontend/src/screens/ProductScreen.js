@@ -210,12 +210,20 @@ const ProductScreen = () => {
                               backgroundColor: 'var(--bg-tertiary)',
                               color: 'var(--text-primary)',
                               border: '1px solid var(--border-color)',
-                              borderRadius: '6px'
+                              borderRadius: '6px',
+                              padding: '0.5rem'
                             }}
                           >
                             {[...Array(product.countInStock).keys()].map(
                               (x) => (
-                                <option key={x + 1} value={x + 1}>
+                                <option
+                                  key={x + 1}
+                                  value={x + 1}
+                                  style={{
+                                    backgroundColor: 'var(--bg-tertiary)',
+                                    color: 'var(--text-primary)'
+                                  }}
+                                >
                                   {x + 1}
                                 </option>
                               )
@@ -345,12 +353,12 @@ const ProductScreen = () => {
                             padding: '0.75rem'
                           }}
                         >
-                          <option value=''>Select...</option>
-                          <option value='1'>1 - Poor</option>
-                          <option value='2'>2 - Fair</option>
-                          <option value='3'>3 - Good</option>
-                          <option value='4'>4 - Very Good</option>
-                          <option value='5'>5 - Excellent</option>
+                          <option value='' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>Select...</option>
+                          <option value='1' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>1 - Poor</option>
+                          <option value='2' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>2 - Fair</option>
+                          <option value='3' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>3 - Good</option>
+                          <option value='4' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>4 - Very Good</option>
+                          <option value='5' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>5 - Excellent</option>
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId='comment' style={{ marginBottom: '1.5rem' }}>

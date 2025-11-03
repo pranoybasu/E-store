@@ -252,7 +252,7 @@ const ProfileScreen = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map(order => (
+                    {orders && orders.length > 0 ? orders.map(order => (
                       <tr key={order._id} style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
                         <td style={{ color: 'var(--text-secondary)', padding: '1rem' }}>{order._id}</td>
                         <td style={{ color: 'var(--text-secondary)', padding: '1rem' }}>{order.createdAt.substring(0, 10)}</td>
@@ -298,7 +298,13 @@ const ProfileScreen = () => {
                           </LinkContainer>
                         </td>
                       </tr>
-                    ))}
+                    )) : (
+                      <tr>
+                        <td colSpan="6" style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '2rem' }}>
+                          No orders found
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </Table>
               </div>
