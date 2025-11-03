@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -102,69 +101,96 @@ const UserEditScreen = () => {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+          <form onSubmit={submitHandler}>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label htmlFor='name' style={{
+                display: 'block',
                 color: 'var(--text-primary)',
                 fontWeight: '500',
                 marginBottom: '0.5rem'
-              }}>Name</Form.Label>
-              <Form.Control
-                type='name'
+              }}>Name</label>
+              <input
+                id='name'
+                type='text'
                 placeholder='Enter name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 style={{
+                  width: '100%',
                   background: 'var(--bg-tertiary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  transition: 'border-color 0.2s ease'
                 }}
-              ></Form.Control>
-            </Form.Group>
+                onFocus={(e) => e.target.style.borderColor = 'var(--accent-primary)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+              />
+            </div>
 
-            <Form.Group controlId='email' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label htmlFor='email' style={{
+                display: 'block',
                 color: 'var(--text-primary)',
                 fontWeight: '500',
                 marginBottom: '0.5rem'
-              }}>Email Address</Form.Label>
-              <Form.Control
+              }}>Email Address</label>
+              <input
+                id='email'
                 type='email'
                 placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 style={{
+                  width: '100%',
                   background: 'var(--bg-tertiary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  transition: 'border-color 0.2s ease'
                 }}
-              ></Form.Control>
-            </Form.Group>
+                onFocus={(e) => e.target.style.borderColor = 'var(--accent-primary)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+              />
+            </div>
 
-            <Form.Group controlId='isadmin' style={{ marginBottom: '2rem' }}>
+            <div style={{ marginBottom: '2rem' }}>
               <div style={{
                 background: 'var(--bg-tertiary)',
                 border: '1px solid var(--border-color)',
                 borderRadius: '8px',
                 padding: '1rem'
               }}>
-                <Form.Check
-                  type='checkbox'
-                  label='Is Admin'
-                  checked={isAdmin}
-                  onChange={(e) => setIsAdmin(e.target.checked)}
-                  style={{
-                    color: 'var(--text-primary)'
-                  }}
-                />
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  userSelect: 'none'
+                }}>
+                  <input
+                    type='checkbox'
+                    checked={isAdmin}
+                    onChange={(e) => setIsAdmin(e.target.checked)}
+                    style={{
+                      marginRight: '0.75rem',
+                      width: '18px',
+                      height: '18px',
+                      cursor: 'pointer'
+                    }}
+                  />
+                  <span style={{ fontWeight: '500' }}>Is Admin</span>
+                </label>
               </div>
-            </Form.Group>
+            </div>
 
-            <Button
+            <button
               type='submit'
               style={{
                 background: 'var(--accent-primary)',
@@ -176,13 +202,22 @@ const UserEditScreen = () => {
                 fontWeight: '500',
                 width: '100%',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 2px 8px rgba(0, 113, 227, 0.3)'
+                boxShadow: '0 2px 8px rgba(0, 113, 227, 0.3)',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)'
+                e.target.style.boxShadow = '0 4px 12px rgba(0, 113, 227, 0.4)'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)'
+                e.target.style.boxShadow = '0 2px 8px rgba(0, 113, 227, 0.3)'
               }}
             >
               <i className='fas fa-save' style={{ marginRight: '0.5rem' }}></i>
               Update User
-            </Button>
-          </Form>
+            </button>
+          </form>
         )}
       </FormContainer>
     </>

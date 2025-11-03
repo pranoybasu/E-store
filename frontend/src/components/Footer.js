@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
 
 const Footer = () => {
     return (
@@ -9,9 +8,9 @@ const Footer = () => {
             padding: 'var(--spacing-lg) 0',
             marginTop: 'auto'
         }}>
-            <Container>
-                <Row>
-                    <Col className='text-center py-3'>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-12 text-center py-3'>
                         <p style={{
                             color: 'var(--text-tertiary)',
                             fontSize: '0.875rem',
@@ -26,9 +25,9 @@ const Footer = () => {
                         }}>
                             Copyright &copy; {new Date().getFullYear()} E-Store. All rights reserved.
                         </p>
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+                </div>
+            </div>
         </footer>
     )
 }

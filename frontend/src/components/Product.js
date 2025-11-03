@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
 import Rating from './Rating'
 
 const Product = ({ product }) => {
     return (
-        <Card
+        <div
             className='product-card fade-in'
             style={{
                 background: 'var(--bg-secondary)',
@@ -38,9 +37,9 @@ const Product = ({ product }) => {
                     background: 'var(--bg-tertiary)',
                     position: 'relative'
                 }}>
-                    <Card.Img
+                    <img
                         src={product.image}
-                        variant='top'
+                        alt={product.name}
                         style={{
                             width: '100%',
                             height: '100%',
@@ -57,7 +56,7 @@ const Product = ({ product }) => {
                 </div>
             </Link>
 
-            <Card.Body style={{
+            <div style={{
                 padding: 'var(--spacing-md)',
                 flex: '1',
                 display: 'flex',
@@ -71,8 +70,7 @@ const Product = ({ product }) => {
                         color: 'inherit'
                     }}
                 >
-                    <Card.Title
-                        as='div'
+                    <h3
                         style={{
                             color: 'var(--text-primary)',
                             fontSize: '1.125rem',
@@ -88,18 +86,17 @@ const Product = ({ product }) => {
                         }}
                     >
                         {product.name}
-                    </Card.Title>
+                    </h3>
                 </Link>
 
-                <Card.Text as='div' style={{ marginTop: 'auto' }}>
+                <div style={{ marginTop: 'auto' }}>
                     <Rating
                         value={product.rating}
                         text={`${product.numReviews} reviews`}
                     />
-                </Card.Text>
+                </div>
 
-                <Card.Text
-                    as='h3'
+                <h3
                     style={{
                         color: 'var(--accent-primary)',
                         fontSize: '1.5rem',
@@ -109,9 +106,9 @@ const Product = ({ product }) => {
                     }}
                 >
                     ${product.price}
-                </Card.Text>
-            </Card.Body>
-        </Card>
+                </h3>
+            </div>
+        </div>
     )
 }
 

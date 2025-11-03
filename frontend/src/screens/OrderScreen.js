@@ -3,7 +3,6 @@ import axios from 'axios'
 import API_URL from '../config'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -92,7 +91,7 @@ const OrderScreen = () => {
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
-    <div style={{ padding: '2rem 0' }}>
+    <div className='container' style={{ padding: '2rem 0' }}>
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ color: 'var(--text-primary)', fontSize: '2rem', marginBottom: '0.5rem' }}>
           Order Details
@@ -102,8 +101,8 @@ const OrderScreen = () => {
         </p>
       </div>
 
-      <Row>
-        <Col md={8}>
+      <div className='row'>
+        <div className='col-md-8'>
           {/* Shipping Section */}
           <div style={{
             background: 'var(--bg-secondary)',
@@ -209,12 +208,13 @@ const OrderScreen = () => {
                     borderBottom: index < order.orderItems.length - 1 ? '1px solid var(--border-color)' : 'none'
                   }}>
                     <div style={{ width: '80px', marginRight: '1rem' }}>
-                      <Image
+                      <img
                         src={item.image}
                         alt={item.name}
-                        fluid
-                        rounded
-                        style={{ borderRadius: '8px' }}
+                        style={{ 
+                          width: '100%',
+                          borderRadius: '8px'
+                        }}
                       />
                     </div>
                     <div style={{ flex: 1 }}>
@@ -225,6 +225,8 @@ const OrderScreen = () => {
                           textDecoration: 'none',
                           fontWeight: '500'
                         }}
+                        onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'}
+                        onMouseLeave={(e) => e.target.style.color = 'var(--text-primary)'}
                       >
                         {item.name}
                       </Link>
@@ -241,9 +243,9 @@ const OrderScreen = () => {
               </div>
             )}
           </div>
-        </Col>
+        </div>
 
-        <Col md={4}>
+        <div className='col-md-4'>
           <div style={{ position: 'sticky', top: '2rem' }}>
             <div style={{
               background: 'var(--bg-secondary)',
@@ -315,7 +317,7 @@ const OrderScreen = () => {
 
               {loadingDeliver && <Loader />}
               {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
-                <Button
+                <button
                   type='button'
                   onClick={deliverHandler}
                   style={{
@@ -342,12 +344,12 @@ const OrderScreen = () => {
                 >
                   <i className='fas fa-check-circle' style={{ marginRight: '0.5rem' }}></i>
                   Mark As Delivered
-                </Button>
+                </button>
               )}
             </div>
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   )
 }

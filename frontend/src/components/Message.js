@@ -1,5 +1,4 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
 
 const Message = ({ variant, children }) => {
     const getVariantStyles = () => {
@@ -32,18 +31,21 @@ const Message = ({ variant, children }) => {
     };
 
     return (
-        <Alert
-            variant={variant}
+        <div
+            className={`alert alert-${variant}`}
+            role="alert"
             style={{
                 ...getVariantStyles(),
                 border: '1px solid',
                 borderRadius: '8px',
                 padding: '1rem 1.25rem',
-                marginBottom: '1rem'
+                marginBottom: '1rem',
+                fontSize: '0.875rem',
+                lineHeight: '1.5'
             }}
         >
             {children}
-        </Alert>
+        </div>
     )
 }
 

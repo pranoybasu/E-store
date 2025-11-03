@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -56,18 +55,20 @@ const RegisterScreen = () => {
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
 
-            <Form onSubmit={submitHandler}>
-                <Form.Group controlId='name' style={{ marginBottom: '1.5rem' }}>
-                    <Form.Label style={{
+            <form onSubmit={submitHandler}>
+                <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                    <label htmlFor='name' style={{
                         color: 'var(--text-primary)',
                         fontWeight: '500',
                         marginBottom: '0.5rem',
                         display: 'block'
                     }}>
                         Full Name
-                    </Form.Label>
-                    <Form.Control
-                        type='name'
+                    </label>
+                    <input
+                        type='text'
+                        id='name'
+                        className='form-control'
                         placeholder='Enter your full name'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -79,19 +80,21 @@ const RegisterScreen = () => {
                             padding: '0.75rem'
                         }}
                     />
-                </Form.Group>
+                </div>
 
-                <Form.Group controlId='email' style={{ marginBottom: '1.5rem' }}>
-                    <Form.Label style={{
+                <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                    <label htmlFor='email' style={{
                         color: 'var(--text-primary)',
                         fontWeight: '500',
                         marginBottom: '0.5rem',
                         display: 'block'
                     }}>
                         Email Address
-                    </Form.Label>
-                    <Form.Control
+                    </label>
+                    <input
                         type='email'
+                        id='email'
+                        className='form-control'
                         placeholder='Enter your email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -103,19 +106,21 @@ const RegisterScreen = () => {
                             padding: '0.75rem'
                         }}
                     />
-                </Form.Group>
+                </div>
 
-                <Form.Group controlId='password' style={{ marginBottom: '1.5rem' }}>
-                    <Form.Label style={{
+                <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                    <label htmlFor='password' style={{
                         color: 'var(--text-primary)',
                         fontWeight: '500',
                         marginBottom: '0.5rem',
                         display: 'block'
                     }}>
                         Password
-                    </Form.Label>
-                    <Form.Control
+                    </label>
+                    <input
                         type='password'
+                        id='password'
+                        className='form-control'
                         placeholder='Enter a strong password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -127,19 +132,21 @@ const RegisterScreen = () => {
                             padding: '0.75rem'
                         }}
                     />
-                </Form.Group>
+                </div>
 
-                <Form.Group controlId='confirmPassword' style={{ marginBottom: '1.5rem' }}>
-                    <Form.Label style={{
+                <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                    <label htmlFor='confirmPassword' style={{
                         color: 'var(--text-primary)',
                         fontWeight: '500',
                         marginBottom: '0.5rem',
                         display: 'block'
                     }}>
                         Confirm Password
-                    </Form.Label>
-                    <Form.Control
+                    </label>
+                    <input
                         type='password'
+                        id='confirmPassword'
+                        className='form-control'
                         placeholder='Re-enter your password'
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -151,11 +158,11 @@ const RegisterScreen = () => {
                             padding: '0.75rem'
                         }}
                     />
-                </Form.Group>
+                </div>
 
-                <Button
+                <button
                     type='submit'
-                    variant='primary'
+                    className='btn btn-primary'
                     style={{
                         width: '100%',
                         marginTop: '1rem',
@@ -180,11 +187,11 @@ const RegisterScreen = () => {
                 >
                     <i className='fas fa-user-plus' style={{ marginRight: '0.5rem' }}></i>
                     Create Account
-                </Button>
-            </Form>
+                </button>
+            </form>
 
-            <Row className='py-3' style={{ marginTop: '1.5rem' }}>
-                <Col style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
+            <div className='row' style={{ marginTop: '1.5rem', paddingTop: '1rem', paddingBottom: '1rem' }}>
+                <div className='col' style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
                     Existing Customer?{' '}
                     <Link
                         to={redirect ? `/login?redirect=${redirect}` : `/login`}
@@ -196,8 +203,8 @@ const RegisterScreen = () => {
                     >
                         Sign In Here
                     </Link>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </FormContainer>
     )
 }

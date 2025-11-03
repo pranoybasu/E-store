@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -31,13 +30,14 @@ const PlaceOrderScreen = () => {
 
   const orderCreate = useSelector(state => state.orderCreate)
   const { order, success, error } = orderCreate
-useEffect(() => {
-  if(success) {
-    navigate(`/order/${order._id}`)
-    dispatch({ type: ORDER_CREATE_RESET })
-  }
-  // eslint-disable-next-line
-},[navigate, success])
+  
+  useEffect(() => {
+    if(success) {
+      navigate(`/order/${order._id}`)
+      dispatch({ type: ORDER_CREATE_RESET })
+    }
+    // eslint-disable-next-line
+  },[navigate, success])
 
   const placeOrderHandler = () => {
     dispatch(createOrder({
@@ -52,12 +52,13 @@ useEffect(() => {
   }
 
   return (
-    <div style={{ padding: '2rem 0', minHeight: '70vh' }}>
+    <div className='container' style={{ padding: '2rem 0', minHeight: '70vh' }}>
       <CheckoutSteps step1 step2 step3 step4 />
-      <Row>
-        <Col md={8}>
-          <ListGroup variant='flush'>
-            <ListGroup.Item style={{
+      <div className='row'>
+        <div className='col-md-8'>
+          <div className='list-group list-group-flush'>
+            {/* Shipping Section */}
+            <div className='list-group-item' style={{
               backgroundColor: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
               borderRadius: '12px',
@@ -79,9 +80,10 @@ useEffect(() => {
                 {cart.shippingAddress.postalCode},{' '}
                 {cart.shippingAddress.country}
               </p>
-            </ListGroup.Item>
+            </div>
 
-            <ListGroup.Item style={{
+            {/* Payment Section */}
+            <div className='list-group-item' style={{
               backgroundColor: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
               borderRadius: '12px',
@@ -101,9 +103,10 @@ useEffect(() => {
                 <strong style={{ color: 'var(--text-primary)' }}>Method: </strong>
                 {cart.paymentMethod}
               </p>
-            </ListGroup.Item>
+            </div>
 
-            <ListGroup.Item style={{
+            {/* Order Items Section */}
+            <div className='list-group-item' style={{
               backgroundColor: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
               borderRadius: '12px',
@@ -122,10 +125,11 @@ useEffect(() => {
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
-                <ListGroup variant='flush'>
+                <div className='list-group list-group-flush'>
                   {cart.cartItems.map((item, index) => (
-                    <ListGroup.Item
+                    <div
                       key={index}
+                      className='list-group-item'
                       style={{
                         backgroundColor: 'transparent',
                         border: 'none',
@@ -133,20 +137,19 @@ useEffect(() => {
                         padding: '1rem 0'
                       }}
                     >
-                      <Row className='align-items-center'>
-                        <Col md={1}>
-                          <Image
+                      <div className='row align-items-center'>
+                        <div className='col-md-1'>
+                          <img
                             src={item.image}
                             alt={item.name}
-                            fluid
-                            rounded
                             style={{
+                              width: '100%',
                               borderRadius: '8px',
                               border: '1px solid var(--border-color)'
                             }}
                           />
-                        </Col>
-                        <Col>
+                        </div>
+                        <div className='col'>
                           <Link
                             to={`/product/${item.product}`}
                             style={{
@@ -154,31 +157,34 @@ useEffect(() => {
                               textDecoration: 'none',
                               fontWeight: '500'
                             }}
+                            onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'}
+                            onMouseLeave={(e) => e.target.style.color = 'var(--text-primary)'}
                           >
                             {item.name}
                           </Link>
-                        </Col>
-                        <Col md={4} style={{ color: 'var(--text-secondary)' }}>
+                        </div>
+                        <div className='col-md-4' style={{ color: 'var(--text-secondary)' }}>
                           {item.qty} x ${item.price} = <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>${(item.qty * item.price).toFixed(2)}</span>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </ListGroup>
+                </div>
               )}
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col md={4}>
-          <Card style={{
+            </div>
+          </div>
+        </div>
+        
+        <div className='col-md-4'>
+          <div style={{
             backgroundColor: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
             borderRadius: '12px',
             position: 'sticky',
             top: '2rem'
           }}>
-            <ListGroup variant='flush'>
-              <ListGroup.Item style={{
+            <div className='list-group list-group-flush'>
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1.5rem',
@@ -192,72 +198,71 @@ useEffect(() => {
                 }}>
                   Order Summary
                 </h2>
-              </ListGroup.Item>
+              </div>
               
-              <ListGroup.Item style={{
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1rem 1.5rem'
               }}>
-                <Row>
-                  <Col style={{ color: 'var(--text-secondary)' }}>Items</Col>
-                  <Col style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
+                <div className='row'>
+                  <div className='col' style={{ color: 'var(--text-secondary)' }}>Items</div>
+                  <div className='col' style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.itemsPrice}</div>
+                </div>
+              </div>
               
-              <ListGroup.Item style={{
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1rem 1.5rem'
               }}>
-                <Row>
-                  <Col style={{ color: 'var(--text-secondary)' }}>Shipping</Col>
-                  <Col style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.shippingPrice}</Col>
-                </Row>
-              </ListGroup.Item>
+                <div className='row'>
+                  <div className='col' style={{ color: 'var(--text-secondary)' }}>Shipping</div>
+                  <div className='col' style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.shippingPrice}</div>
+                </div>
+              </div>
               
-              <ListGroup.Item style={{
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1rem 1.5rem'
               }}>
-                <Row>
-                  <Col style={{ color: 'var(--text-secondary)' }}>Tax</Col>
-                  <Col style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item>
+                <div className='row'>
+                  <div className='col' style={{ color: 'var(--text-secondary)' }}>Tax</div>
+                  <div className='col' style={{ color: 'var(--text-primary)', fontWeight: '600', textAlign: 'right' }}>${cart.taxPrice}</div>
+                </div>
+              </div>
               
-              <ListGroup.Item style={{
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1rem 1.5rem',
                 borderTop: '1px solid var(--border-color)',
                 borderBottom: '1px solid var(--border-color)'
               }}>
-                <Row>
-                  <Col style={{ color: 'var(--text-primary)', fontSize: '1.1rem', fontWeight: '600' }}>Total</Col>
-                  <Col style={{ color: 'var(--accent-primary)', fontSize: '1.5rem', fontWeight: '700', textAlign: 'right' }}>${cart.totalPrice}</Col>
-                </Row>
-              </ListGroup.Item>
+                <div className='row'>
+                  <div className='col' style={{ color: 'var(--text-primary)', fontSize: '1.1rem', fontWeight: '600' }}>Total</div>
+                  <div className='col' style={{ color: 'var(--accent-primary)', fontSize: '1.5rem', fontWeight: '700', textAlign: 'right' }}>${cart.totalPrice}</div>
+                </div>
+              </div>
               
               {error && (
-                <ListGroup.Item style={{
+                <div className='list-group-item' style={{
                   backgroundColor: 'transparent',
                   border: 'none',
                   padding: '1rem 1.5rem'
                 }}>
                   <Message variant='danger'>{error}</Message>
-                </ListGroup.Item>
+                </div>
               )}
               
-              <ListGroup.Item style={{
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1.5rem'
               }}>
-                <Button
+                <button
                   type='button'
-                  className='btn-block'
                   disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
                   style={{
@@ -273,25 +278,25 @@ useEffect(() => {
                     cursor: cart.cartItems.length === 0 ? 'not-allowed' : 'pointer',
                     opacity: cart.cartItems.length === 0 ? 0.5 : 1
                   }}
-                  onMouseOver={(e) => {
+                  onMouseEnter={(e) => {
                     if (cart.cartItems.length > 0) {
                       e.currentTarget.style.transform = 'translateY(-2px)'
                       e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 113, 227, 0.3)'
                     }
                   }}
-                  onMouseOut={(e) => {
+                  onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)'
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
                   <i className="fas fa-check-circle" style={{ marginRight: '0.5rem' }}></i>
                   Place Order
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

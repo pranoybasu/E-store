@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
-import { useNavigate } from 'react-router-dom'
-import { Table, Button, Container } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -35,7 +33,7 @@ const UserListScreen = () => {
   }
 
   return (
-    <Container style={{ padding: '2rem 0' }}>
+    <div className='container' style={{ padding: '2rem 0' }}>
       <div style={{
         marginBottom: '2rem',
         borderBottom: '2px solid var(--accent-primary)',
@@ -70,133 +68,151 @@ const UserListScreen = () => {
           borderRadius: '12px',
           overflow: 'hidden'
         }}>
-          <Table responsive className='table-sm' style={{ marginBottom: 0 }}>
-            <thead>
-              <tr style={{
-                background: 'var(--bg-tertiary)',
-                borderBottom: '2px solid var(--border-color)'
-              }}>
-                <th style={{
-                  padding: '1rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: '600',
-                  fontSize: '0.85rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>ID</th>
-                <th style={{
-                  padding: '1rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: '600',
-                  fontSize: '0.85rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>NAME</th>
-                <th style={{
-                  padding: '1rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: '600',
-                  fontSize: '0.85rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>EMAIL</th>
-                <th style={{
-                  padding: '1rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: '600',
-                  fontSize: '0.85rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>ADMIN</th>
-                <th style={{
-                  padding: '1rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: '600',
-                  fontSize: '0.85rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id} style={{
-                  background: 'var(--bg-secondary)',
-                  borderBottom: '1px solid var(--border-color)',
-                  transition: 'background 0.2s ease'
+          <div style={{ overflowX: 'auto' }}>
+            <table className='table-sm' style={{ width: '100%', marginBottom: 0 }}>
+              <thead>
+                <tr style={{
+                  background: 'var(--bg-tertiary)',
+                  borderBottom: '2px solid var(--border-color)'
                 }}>
-                  <td style={{
-                    padding: '1rem',
-                    color: 'var(--text-secondary)',
-                    fontSize: '0.85rem',
-                    fontFamily: 'monospace'
-                  }}>{user._id}</td>
-                  <td style={{
+                  <th style={{
                     padding: '1rem',
                     color: 'var(--text-primary)',
-                    fontWeight: '500'
-                  }}>{user.name}</td>
-                  <td style={{ padding: '1rem' }}>
-                    <a href={`mailto:${user.email}`} style={{
-                      color: 'var(--accent-primary)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s ease'
-                    }}>
-                      {user.email}
-                    </a>
-                  </td>
-                  <td style={{ padding: '1rem' }}>
-                    {user.isAdmin ? (
-                      <i className='fas fa-check' style={{
-                        color: 'var(--accent-success)',
-                        fontSize: '1.1rem'
-                      }}></i>
-                    ) : (
-                      <i className='fas fa-times' style={{
-                        color: 'var(--accent-danger)',
-                        fontSize: '1.1rem'
-                      }}></i>
-                    )}
-                  </td>
-                  <td style={{ padding: '1rem' }}>
-                    <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                      <Button
-                        className='btn-sm'
+                    fontWeight: '600',
+                    fontSize: '0.85rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>ID</th>
+                  <th style={{
+                    padding: '1rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: '600',
+                    fontSize: '0.85rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>NAME</th>
+                  <th style={{
+                    padding: '1rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: '600',
+                    fontSize: '0.85rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>EMAIL</th>
+                  <th style={{
+                    padding: '1rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: '600',
+                    fontSize: '0.85rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>ADMIN</th>
+                  <th style={{
+                    padding: '1rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: '600',
+                    fontSize: '0.85rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user._id} style={{
+                    background: 'var(--bg-secondary)',
+                    borderBottom: '1px solid var(--border-color)',
+                    transition: 'background 0.2s ease'
+                  }}>
+                    <td style={{
+                      padding: '1rem',
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.85rem',
+                      fontFamily: 'monospace'
+                    }}>{user._id}</td>
+                    <td style={{
+                      padding: '1rem',
+                      color: 'var(--text-primary)',
+                      fontWeight: '500'
+                    }}>{user.name}</td>
+                    <td style={{ padding: '1rem' }}>
+                      <a href={`mailto:${user.email}`} style={{
+                        color: 'var(--accent-primary)',
+                        textDecoration: 'none',
+                        transition: 'color 0.2s ease'
+                      }}>
+                        {user.email}
+                      </a>
+                    </td>
+                    <td style={{ padding: '1rem' }}>
+                      {user.isAdmin ? (
+                        <i className='fas fa-check' style={{
+                          color: 'var(--accent-success)',
+                          fontSize: '1.1rem'
+                        }}></i>
+                      ) : (
+                        <i className='fas fa-times' style={{
+                          color: 'var(--accent-danger)',
+                          fontSize: '1.1rem'
+                        }}></i>
+                      )}
+                    </td>
+                    <td style={{ padding: '1rem' }}>
+                      <Link to={`/admin/user/${user._id}/edit`}>
+                        <button
+                          style={{
+                            background: 'var(--bg-tertiary)',
+                            border: '1px solid var(--border-color)',
+                            color: 'var(--text-primary)',
+                            marginRight: '0.5rem',
+                            padding: '0.4rem 0.8rem',
+                            borderRadius: '6px',
+                            transition: 'all 0.2s ease',
+                            cursor: 'pointer'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.background = 'var(--accent-primary)'
+                            e.target.style.color = 'white'
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.background = 'var(--bg-tertiary)'
+                            e.target.style.color = 'var(--text-primary)'
+                          }}
+                        >
+                          <i className='fas fa-edit'></i>
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => deleteHandler(user._id)}
                         style={{
-                          background: 'var(--bg-tertiary)',
-                          border: '1px solid var(--border-color)',
-                          color: 'var(--text-primary)',
-                          marginRight: '0.5rem',
+                          background: 'rgba(255, 59, 48, 0.1)',
+                          border: '1px solid var(--accent-danger)',
+                          color: 'var(--accent-danger)',
                           padding: '0.4rem 0.8rem',
                           borderRadius: '6px',
-                          transition: 'all 0.2s ease'
+                          transition: 'all 0.2s ease',
+                          cursor: 'pointer'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.background = 'var(--accent-danger)'
+                          e.target.style.color = 'white'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.background = 'rgba(255, 59, 48, 0.1)'
+                          e.target.style.color = 'var(--accent-danger)'
                         }}
                       >
-                        <i className='fas fa-edit'></i>
-                      </Button>
-                    </LinkContainer>
-                    <Button
-                      className='btn-sm'
-                      onClick={() => deleteHandler(user._id)}
-                      style={{
-                        background: 'rgba(255, 59, 48, 0.1)',
-                        border: '1px solid var(--accent-danger)',
-                        color: 'var(--accent-danger)',
-                        padding: '0.4rem 0.8rem',
-                        borderRadius: '6px',
-                        transition: 'all 0.2s ease'
-                      }}
-                    >
-                      <i className='fas fa-trash'></i>
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+                        <i className='fas fa-trash'></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
-    </Container>
+    </div>
   )
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Spinner } from 'react-bootstrap';
 
 const Loader = () => {
     return (
@@ -11,18 +10,30 @@ const Loader = () => {
             flexDirection: 'column',
             gap: '1rem'
         }}>
-            <Spinner
-                animation='border'
-                role='status'
+            <div 
+                className="spinner"
+                role="status"
                 style={{
                     width: '60px',
                     height: '60px',
-                    borderColor: 'var(--accent-primary)',
-                    borderRightColor: 'transparent'
+                    border: '4px solid rgba(0, 113, 227, 0.3)',
+                    borderTop: '4px solid var(--accent-primary)',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite'
                 }}
             >
-                <span className='sr-only'>Loading</span>
-            </Spinner>
+                <span style={{ 
+                    position: 'absolute',
+                    width: '1px',
+                    height: '1px',
+                    padding: '0',
+                    margin: '-1px',
+                    overflow: 'hidden',
+                    clip: 'rect(0,0,0,0)',
+                    whiteSpace: 'nowrap',
+                    borderWidth: '0'
+                }}>Loading</span>
+            </div>
             <span style={{
                 color: 'var(--text-secondary)',
                 fontSize: '0.875rem',
@@ -30,6 +41,12 @@ const Loader = () => {
             }}>
                 Loading...
             </span>
+            <style>{`
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
         </div>
     )
 }

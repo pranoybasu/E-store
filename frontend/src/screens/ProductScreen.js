@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Image, ListGroup, Card, Button, Form, Container } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import Meta from '../components/Meta'
 import Loader from '../components/Loader'
@@ -61,7 +60,7 @@ const ProductScreen = () => {
 
 
     return (
-        <Container>
+        <div className='container'>
          <Link
            className='btn my-3'
            to='/'
@@ -87,39 +86,38 @@ const ProductScreen = () => {
            ← Go Back
          </Link>
          { loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
-            <>
-            <Meta title={product.name} />
-            <Row style={{ marginTop: '2rem' }}>
-              <Col md={6} style={{ marginBottom: '2rem' }}>
-                <div style={{
-                  backgroundColor: 'var(--bg-secondary)',
-                  borderRadius: '12px',
-                  padding: '1.5rem',
-                  border: '1px solid var(--border-color)'
-                }}>
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fluid
-                    style={{
-                      borderRadius: '8px',
-                      maxHeight: '500px',
-                      objectFit: 'cover',
-                      width: '100%'
-                    }}
-                  />
-                </div>
-              </Col>
-              <Col md={3} style={{ marginBottom: '2rem' }}>
-                    <ListGroup variant='flush' style={{ backgroundColor: 'transparent' }}>
-                        <ListGroup.Item style={{
+           <>
+           <Meta title={product.name} />
+           <div className='row' style={{ marginTop: '2rem' }}>
+             <div className='col-md-6' style={{ marginBottom: '2rem' }}>
+               <div style={{
+                 backgroundColor: 'var(--bg-secondary)',
+                 borderRadius: '12px',
+                 padding: '1.5rem',
+                 border: '1px solid var(--border-color)'
+               }}>
+                 <img
+                   src={product.image}
+                   alt={product.name}
+                   style={{
+                     borderRadius: '8px',
+                     maxHeight: '500px',
+                     objectFit: 'cover',
+                     width: '100%'
+                   }}
+                 />
+               </div>
+             </div>
+             <div className='col-md-3' style={{ marginBottom: '2rem' }}>
+                   <div className='list-group list-group-flush' style={{ backgroundColor: 'transparent' }}>
+                       <div className='list-group-item' style={{
                           backgroundColor: 'transparent',
                           border: 'none',
                           padding: '0 0 1rem 0'
                         }}>
                         <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{product.name}</h3>
-                        </ListGroup.Item>
-                        <ListGroup.Item style={{
+                        </div>
+                        <div className='list-group-item' style={{
                           backgroundColor: 'transparent',
                           border: 'none',
                           padding: '0.5rem 0'
@@ -128,8 +126,8 @@ const ProductScreen = () => {
                             value={product.rating}
                             text={`${product.numReviews} reviews`}
                         />
-                        </ListGroup.Item>
-                        <ListGroup.Item style={{
+                        </div>
+                        <div className='list-group-item' style={{
                           backgroundColor: 'transparent',
                           border: 'none',
                           padding: '1rem 0',
@@ -138,8 +136,8 @@ const ProductScreen = () => {
                           fontWeight: '600'
                         }}>
                           ${product.price}
-                        </ListGroup.Item>
-                        <ListGroup.Item style={{
+                        </div>
+                        <div className='list-group-item' style={{
                           backgroundColor: 'transparent',
                           border: 'none',
                           padding: '1rem 0'
@@ -151,59 +149,58 @@ const ProductScreen = () => {
                         }}>
                           {product.description}
                         </p>
-                        </ListGroup.Item>
-                        </ListGroup>
-                        </Col>
-                        <Col md={3}>
-                        <Card style={{
+                        </div>
+                        </div>
+                        </div>
+                        <div className='col-md-3'>
+                        <div style={{
                           backgroundColor: 'var(--bg-secondary)',
                           border: '1px solid var(--border-color)',
                           borderRadius: '12px',
                           position: 'sticky',
                           top: '2rem'
                         }}>
-                            <ListGroup variant='flush'>
-                            <ListGroup.Item style={{
+                            <div className='list-group list-group-flush'>
+                            <div className='list-group-item' style={{
                               backgroundColor: 'transparent',
                               borderColor: 'var(--border-color)',
                               color: 'var(--text-primary)'
                             }}>
-                                <Row>
-                                <Col>Price:</Col>
-                                <Col>
+                                <div className='row'>
+                                <div className='col'>Price:</div>
+                                <div className='col'>
                                     <strong style={{ color: 'var(--accent-primary)' }}>${product.price}</strong>
-                                </Col>
-                                </Row>
-                            </ListGroup.Item>
+                                </div>
+                                </div>
+                            </div>
 
-                            <ListGroup.Item style={{
+                            <div className='list-group-item' style={{
                               backgroundColor: 'transparent',
                               borderColor: 'var(--border-color)',
                               color: 'var(--text-primary)'
                             }}>
-                                <Row>
-                                    <Col>Status:</Col>
-                                    <Col>
+                                <div className='row'>
+                                    <div className='col'>Status:</div>
+                                    <div className='col'>
                                     <span style={{
                                       color: product.countInStock > 0 ? 'var(--success-color)' : 'var(--danger-color)',
                                       fontWeight: '500'
                                     }}>
                                       {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
                                     </span>
-                                    </Col>
-                                </Row>
-                            </ListGroup.Item>
+                                    </div>
+                                </div>
+                            </div>
                             {product.countInStock > 0 && (
-                    <ListGroup.Item style={{
+                    <div className='list-group-item' style={{
                       backgroundColor: 'transparent',
                       borderColor: 'var(--border-color)',
                       color: 'var(--text-primary)'
                     }}>
-                      <Row>
-                        <Col>Qty:</Col>
-                        <Col>
-                          <Form.Control
-                            as='select'
+                      <div className='row'>
+                        <div className='col'>Qty:</div>
+                        <div className='col'>
+                          <select
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                             style={{
@@ -211,7 +208,8 @@ const ProductScreen = () => {
                               color: 'var(--text-primary)',
                               border: '1px solid var(--border-color)',
                               borderRadius: '6px',
-                              padding: '0.5rem'
+                              padding: '0.5rem',
+                              width: '100%'
                             }}
                           >
                             {[...Array(product.countInStock).keys()].map(
@@ -228,20 +226,19 @@ const ProductScreen = () => {
                                 </option>
                               )
                             )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
                   )}
 
-                  <ListGroup.Item style={{
+                  <div className='list-group-item' style={{
                     backgroundColor: 'transparent',
                     border: 'none',
                     padding: '1rem'
                   }}>
-                    <Button
+                    <button
                       onClick={addToCartHandler}
-                      className='btn-block'
                       type='button'
                       disabled={product.countInStock === 0}
                       style={{
@@ -269,14 +266,14 @@ const ProductScreen = () => {
                       }}
                     >
                             Add To Cart
-                            </Button>
-                        </ListGroup.Item>
-                        </ListGroup>
-                    </Card>
-                    </Col>
-                </Row>
-                <Row style={{ marginTop: '3rem' }}>
-                    <Col md={8}>
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div className='row' style={{ marginTop: '3rem' }}>
+                    <div className='col-md-8'>
                     <h2 style={{
                       color: 'var(--text-primary)',
                       marginBottom: '1.5rem',
@@ -286,10 +283,11 @@ const ProductScreen = () => {
                       Customer Reviews
                     </h2>
                     {product.reviews.length === 0 && <Message>No Reviews Yet</Message>}
-                    <ListGroup variant='flush' style={{ backgroundColor: 'transparent' }}>
+                    <div className='list-group list-group-flush' style={{ backgroundColor: 'transparent' }}>
                         {product.reviews.map((review) => (
-                        <ListGroup.Item
+                        <div
                           key={review._id}
+                          className='list-group-item'
                           style={{
                             backgroundColor: 'var(--bg-secondary)',
                             border: '1px solid var(--border-color)',
@@ -316,9 +314,9 @@ const ProductScreen = () => {
                             }}>
                               {review.comment}
                             </p>
-                        </ListGroup.Item>
+                        </div>
                         ))}
-                        <ListGroup.Item style={{
+                        <div className='list-group-item' style={{
                           backgroundColor: 'var(--bg-secondary)',
                           border: '1px solid var(--border-color)',
                           borderRadius: '12px',
@@ -336,13 +334,13 @@ const ProductScreen = () => {
                     <Message variant='danger'>{errorProductReview}</Message>
                   )}
                   {userInfo ? (
-                    <Form onSubmit={submitHandler}>
-                      <Form.Group controlId='rating' style={{ marginBottom: '1.5rem' }}>
-                        <Form.Label style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+                    <form onSubmit={submitHandler}>
+                      <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                        <label htmlFor='rating' style={{ color: 'var(--text-primary)', marginBottom: '0.5rem', display: 'block' }}>
                           Rating
-                        </Form.Label>
-                        <Form.Control
-                          as='select'
+                        </label>
+                        <select
+                          id='rating'
                           value={rating}
                           onChange={(e) => setRating(e.target.value)}
                           style={{
@@ -350,7 +348,8 @@ const ProductScreen = () => {
                             color: 'var(--text-primary)',
                             border: '1px solid var(--border-color)',
                             borderRadius: '8px',
-                            padding: '0.75rem'
+                            padding: '0.75rem',
+                            width: '100%'
                           }}
                         >
                           <option value='' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>Select...</option>
@@ -359,14 +358,14 @@ const ProductScreen = () => {
                           <option value='3' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>3 - Good</option>
                           <option value='4' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>4 - Very Good</option>
                           <option value='5' style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>5 - Excellent</option>
-                        </Form.Control>
-                      </Form.Group>
-                      <Form.Group controlId='comment' style={{ marginBottom: '1.5rem' }}>
-                        <Form.Label style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+                        </select>
+                      </div>
+                      <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                        <label htmlFor='comment' style={{ color: 'var(--text-primary)', marginBottom: '0.5rem', display: 'block' }}>
                           Comment
-                        </Form.Label>
-                        <Form.Control
-                          as='textarea'
+                        </label>
+                        <textarea
+                          id='comment'
                           rows={4}
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
@@ -376,13 +375,15 @@ const ProductScreen = () => {
                             border: '1px solid var(--border-color)',
                             borderRadius: '8px',
                             padding: '0.75rem',
-                            resize: 'vertical'
+                            resize: 'vertical',
+                            width: '100%'
                           }}
                           placeholder='Share your experience with this product...'
-                        ></Form.Control>
-                      </Form.Group>
-                      <Button
+                        ></textarea>
+                      </div>
+                      <button
                         type='submit'
+                        className='btn btn-primary'
                         style={{
                           backgroundColor: 'var(--accent-primary)',
                           color: 'var(--text-primary)',
@@ -390,6 +391,7 @@ const ProductScreen = () => {
                           padding: '0.75rem 2rem',
                           borderRadius: '8px',
                           fontWeight: '600',
+                          cursor: 'pointer',
                           transition: 'all 0.3s ease'
                         }}
                         onMouseEnter={(e) => {
@@ -402,20 +404,20 @@ const ProductScreen = () => {
                         }}
                       >
                         Submit Review
-                      </Button>
-                    </Form>
+                      </button>
+                    </form>
                   ) : (
                     <Message>
                       Please <Link to='/login' style={{ color: 'var(--accent-primary)' }}>sign in</Link> to write a review
                     </Message>
                   )}
-                        </ListGroup.Item>
-                    </ListGroup>
-                    </Col>
-          </Row>
+                        </div>
+                    </div>
+                    </div>
+          </div>
         </>
         ) }
-       </Container>
+       </div>
     )
 }
 

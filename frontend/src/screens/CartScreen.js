@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 
@@ -33,15 +32,10 @@ const CartScreen = () => {
   }
 
   return (
-    <div style={{
-      padding: '2rem 0',
-      minHeight: '70vh'
-    }}>
-      <Row>
-        <Col md={8}>
-          <div style={{
-            marginBottom: '2rem'
-          }}>
+    <div className='container' style={{ padding: '2rem 0', minHeight: '70vh' }}>
+      <div className='row'>
+        <div className='col-md-8'>
+          <div style={{ marginBottom: '2rem' }}>
             <h1 style={{
               color: 'var(--text-primary)',
               fontSize: '2rem',
@@ -60,13 +54,14 @@ const CartScreen = () => {
           
           {cartItems.length === 0 ? (
             <Message>
-              Your cart is empty <Link to='/'>Go Back</Link>
+              Your cart is empty <Link to='/' style={{ color: 'var(--accent-primary)' }}>Go Back</Link>
             </Message>
           ) : (
-            <ListGroup variant='flush'>
+            <div className='list-group list-group-flush'>
               {cartItems.map((item) => (
-                <ListGroup.Item
+                <div
                   key={item.product}
+                  className='list-group-item'
                   style={{
                     backgroundColor: 'var(--bg-secondary)',
                     border: '1px solid var(--border-color)',
@@ -75,20 +70,19 @@ const CartScreen = () => {
                     marginBottom: '1rem'
                   }}
                 >
-                  <Row className='align-items-center'>
-                    <Col md={2}>
-                      <Image
+                  <div className='row align-items-center'>
+                    <div className='col-md-2'>
+                      <img
                         src={item.image}
                         alt={item.name}
-                        fluid
-                        rounded
                         style={{
+                          width: '100%',
                           borderRadius: '8px',
                           border: '1px solid var(--border-color)'
                         }}
                       />
-                    </Col>
-                    <Col md={3}>
+                    </div>
+                    <div className='col-md-3'>
                       <Link
                         to={`/product/${item.product}`}
                         style={{
@@ -97,11 +91,13 @@ const CartScreen = () => {
                           fontWeight: '500',
                           textDecoration: 'none'
                         }}
+                        onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'}
+                        onMouseLeave={(e) => e.target.style.color = 'var(--text-primary)'}
                       >
                         {item.name}
                       </Link>
-                    </Col>
-                    <Col md={2}>
+                    </div>
+                    <div className='col-md-2'>
                       <span style={{
                         color: 'var(--accent-primary)',
                         fontSize: '1.1rem',
@@ -109,10 +105,9 @@ const CartScreen = () => {
                       }}>
                         ${item.price}
                       </span>
-                    </Col>
-                    <Col md={2}>
-                      <Form.Control
-                        as='select'
+                    </div>
+                    <div className='col-md-2'>
+                      <select
                         value={item.qty}
                         onChange={(e) =>
                           dispatch(
@@ -125,58 +120,67 @@ const CartScreen = () => {
                           borderRadius: '8px',
                           color: 'var(--text-primary)',
                           padding: '0.5rem',
-                          fontSize: '0.95rem'
+                          fontSize: '0.95rem',
+                          width: '100%'
                         }}
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
+                          <option
+                            key={x + 1}
+                            value={x + 1}
+                            style={{
+                              backgroundColor: 'var(--bg-tertiary)',
+                              color: 'var(--text-primary)'
+                            }}
+                          >
                             {x + 1}
                           </option>
                         ))}
-                      </Form.Control>
-                    </Col>
-                    <Col md={2}>
-                      <Button
+                      </select>
+                    </div>
+                    <div className='col-md-2'>
+                      <button
                         type='button'
                         onClick={() => removeFromCartHandler(item.product)}
                         style={{
                           backgroundColor: 'transparent',
-                          border: '1px solid var(--danger)',
-                          color: 'var(--danger)',
+                          border: '1px solid var(--danger-color)',
+                          color: 'var(--danger-color)',
                           borderRadius: '8px',
                           padding: '0.5rem 1rem',
                           fontSize: '0.95rem',
                           transition: 'all 0.3s ease',
-                          width: '100%'
+                          width: '100%',
+                          cursor: 'pointer'
                         }}
-                        onMouseOver={(e) => {
-                          e.currentTarget.style.backgroundColor = 'var(--danger)'
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--danger-color)'
                           e.currentTarget.style.color = '#ffffff'
                         }}
-                        onMouseOut={(e) => {
+                        onMouseLeave={(e) => {
                           e.currentTarget.style.backgroundColor = 'transparent'
-                          e.currentTarget.style.color = 'var(--danger)'
+                          e.currentTarget.style.color = 'var(--danger-color)'
                         }}
                       >
                         <i className='fas fa-trash'></i>
-                      </Button>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
-            </ListGroup>
+            </div>
           )}
-        </Col>
-        <Col md={4}>
-          <Card style={{
+        </div>
+        <div className='col-md-4'>
+          <div style={{
             backgroundColor: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
             borderRadius: '12px',
             position: 'sticky',
             top: '2rem'
           }}>
-            <ListGroup variant='flush'>
-              <ListGroup.Item style={{
+            <div className='list-group list-group-flush'>
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1.5rem'
@@ -206,15 +210,14 @@ const CartScreen = () => {
                     ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
                   </span>
                 </div>
-              </ListGroup.Item>
-              <ListGroup.Item style={{
+              </div>
+              <div className='list-group-item' style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '0 1.5rem 1.5rem'
               }}>
-                <Button
+                <button
                   type='button'
-                  className='btn-block'
                   disabled={cartItems.length === 0}
                   onClick={checkoutHandler}
                   style={{
@@ -230,24 +233,24 @@ const CartScreen = () => {
                     cursor: cartItems.length === 0 ? 'not-allowed' : 'pointer',
                     opacity: cartItems.length === 0 ? 0.5 : 1
                   }}
-                  onMouseOver={(e) => {
+                  onMouseEnter={(e) => {
                     if (cartItems.length > 0) {
                       e.currentTarget.style.transform = 'translateY(-2px)'
                       e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 113, 227, 0.3)'
                     }
                   }}
-                  onMouseOut={(e) => {
+                  onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)'
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
                   Proceed To Checkout
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

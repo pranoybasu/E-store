@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
 
 const SearchBox = () => {
   const navigate = useNavigate()
@@ -16,18 +15,18 @@ const SearchBox = () => {
   }
 
   return (
-    <Form onSubmit={submitHandler} inline>
-      <Form.Control
+    <form onSubmit={submitHandler} className='search-form'>
+      <input
         type='text'
         name='q'
         onChange={(e) => setKeyword(e.target.value)}
         placeholder='Search Products...'
-        className='mr-sm-2 ml-sm-5'
-      ></Form.Control>
-      <Button type='submit' variant='outline-success' className='p-2'>
-        Search
-      </Button>
-    </Form>
+        className='form-control'
+      />
+      <button type='submit' className='btn btn-primary'>
+        <i className="fas fa-search"></i>
+      </button>
+    </form>
   )
 }
 

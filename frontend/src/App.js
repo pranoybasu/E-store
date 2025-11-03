@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeScreen from "./screens/HomeScreen";
@@ -24,7 +23,7 @@ const App = () => {
     <Router>
     <Header />
     <main className='py-3'>
-      <Container>
+      <div className='container'>
         <Routes>
           <Route path='/order/:id' element={<OrderScreen />} />
           <Route path='/shipping' element={<ShippingScreen />} />
@@ -50,7 +49,7 @@ const App = () => {
           <Route path='/' element={<HomeScreen />} />
           <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>
-      </Container>
+      </div>
     </main>
     <Footer />
     </Router>

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Form, Button, Row, Col } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -60,8 +58,8 @@ const ProfileScreen = () => {
 
   return (
     <div style={{ padding: '2rem 0' }}>
-      <Row>
-        <Col md={4}>
+      <div className='row'>
+        <div className='col-md-4'>
           <div style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
@@ -86,18 +84,19 @@ const ProfileScreen = () => {
             {success && <Message variant='success'>Profile Updated!</Message>}
             {loading && <Loader />}
 
-            <Form onSubmit={submitHandler}>
-              <Form.Group controlId='name' style={{ marginBottom: '1.5rem' }}>
-                <Form.Label style={{
+            <form onSubmit={submitHandler}>
+              <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                <label htmlFor='name' style={{
                   color: 'var(--text-primary)',
                   fontWeight: '500',
                   marginBottom: '0.5rem',
                   display: 'block'
                 }}>
                   Name
-                </Form.Label>
-                <Form.Control
-                  type='name'
+                </label>
+                <input
+                  type='text'
+                  id='name'
                   placeholder='Enter name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -106,22 +105,24 @@ const ProfileScreen = () => {
                     border: '1px solid var(--border-color)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
-                    padding: '0.75rem'
+                    padding: '0.75rem',
+                    width: '100%'
                   }}
                 />
-              </Form.Group>
+              </div>
 
-              <Form.Group controlId='email' style={{ marginBottom: '1.5rem' }}>
-                <Form.Label style={{
+              <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                <label htmlFor='email' style={{
                   color: 'var(--text-primary)',
                   fontWeight: '500',
                   marginBottom: '0.5rem',
                   display: 'block'
                 }}>
                   Email Address
-                </Form.Label>
-                <Form.Control
+                </label>
+                <input
                   type='email'
+                  id='email'
                   placeholder='Enter email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -130,22 +131,24 @@ const ProfileScreen = () => {
                     border: '1px solid var(--border-color)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
-                    padding: '0.75rem'
+                    padding: '0.75rem',
+                    width: '100%'
                   }}
                 />
-              </Form.Group>
+              </div>
 
-              <Form.Group controlId='password' style={{ marginBottom: '1.5rem' }}>
-                <Form.Label style={{
+              <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                <label htmlFor='password' style={{
                   color: 'var(--text-primary)',
                   fontWeight: '500',
                   marginBottom: '0.5rem',
                   display: 'block'
                 }}>
                   Password
-                </Form.Label>
-                <Form.Control
+                </label>
+                <input
                   type='password'
+                  id='password'
                   placeholder='Leave blank to keep current'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -154,22 +157,24 @@ const ProfileScreen = () => {
                     border: '1px solid var(--border-color)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
-                    padding: '0.75rem'
+                    padding: '0.75rem',
+                    width: '100%'
                   }}
                 />
-              </Form.Group>
+              </div>
 
-              <Form.Group controlId='confirmPassword' style={{ marginBottom: '1.5rem' }}>
-                <Form.Label style={{
+              <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                <label htmlFor='confirmPassword' style={{
                   color: 'var(--text-primary)',
                   fontWeight: '500',
                   marginBottom: '0.5rem',
                   display: 'block'
                 }}>
                   Confirm Password
-                </Form.Label>
-                <Form.Control
+                </label>
+                <input
                   type='password'
+                  id='confirmPassword'
                   placeholder='Confirm new password'
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -178,16 +183,16 @@ const ProfileScreen = () => {
                     border: '1px solid var(--border-color)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
-                    padding: '0.75rem'
+                    padding: '0.75rem',
+                    width: '100%'
                   }}
                 />
-              </Form.Group>
+              </div>
 
-              <Button
+              <button
                 type='submit'
-                variant='primary'
+                className='btn btn-primary'
                 style={{
-                  width: '100%',
                   marginTop: '1rem',
                   padding: '0.875rem',
                   background: 'var(--accent-primary)',
@@ -197,7 +202,8 @@ const ProfileScreen = () => {
                   fontWeight: '600',
                   fontSize: '1rem',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  width: '100%'
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.transform = 'translateY(-2px)'
@@ -210,12 +216,12 @@ const ProfileScreen = () => {
               >
                 <i className='fas fa-save' style={{ marginRight: '0.5rem' }}></i>
                 Update Profile
-              </Button>
-            </Form>
+              </button>
+            </form>
           </div>
-        </Col>
+        </div>
 
-        <Col md={8}>
+        <div className='col-md-8'>
           <div style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
@@ -240,7 +246,7 @@ const ProfileScreen = () => {
               <Message variant='danger'>{errorOrders}</Message>
             ) : (
               <div style={{ overflowX: 'auto' }}>
-                <Table striped bordered hover responsive className='table-sm'>
+                <table className='table table-sm'>
                   <thead>
                     <tr style={{ background: 'var(--bg-tertiary)' }}>
                       <th style={{ color: 'var(--text-primary)', padding: '1rem' }}>ID</th>
@@ -278,10 +284,9 @@ const ProfileScreen = () => {
                           )}
                         </td>
                         <td style={{ padding: '1rem' }}>
-                          <LinkContainer to={`/order/${order._id}`}>
-                            <Button
-                              className='btn-sm'
-                              variant='light'
+                          <Link to={`/order/${order._id}`}>
+                            <button
+                              className='btn btn-sm'
                               style={{
                                 background: 'var(--bg-tertiary)',
                                 border: '1px solid var(--border-color)',
@@ -294,8 +299,8 @@ const ProfileScreen = () => {
                               }}
                             >
                               Details
-                            </Button>
-                          </LinkContainer>
+                            </button>
+                          </Link>
                         </td>
                       </tr>
                     )) : (
@@ -306,12 +311,12 @@ const ProfileScreen = () => {
                       </tr>
                     )}
                   </tbody>
-                </Table>
+                </table>
               </div>
             )}
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   )
 }

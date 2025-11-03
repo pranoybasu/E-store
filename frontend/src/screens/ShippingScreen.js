@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -61,17 +60,19 @@ const ShippingScreen = () => {
                     Enter your shipping details
                 </p>
                 
-                <Form onSubmit={submitHandler}>
-                    <Form.Group controlId='address' style={{ marginBottom: '1.5rem' }}>
-                        <Form.Label style={{
+                <form onSubmit={submitHandler}>
+                    <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                        <label htmlFor='address' style={{
                             color: 'var(--text-primary)',
                             fontWeight: '500',
                             marginBottom: '0.5rem'
                         }}>
                             Address
-                        </Form.Label>
-                        <Form.Control
+                        </label>
+                        <input
                             type='text'
+                            id='address'
+                            className='form-control'
                             placeholder='Enter Address'
                             value={address}
                             required
@@ -85,18 +86,20 @@ const ShippingScreen = () => {
                                 fontSize: '1rem'
                             }}
                         />
-                    </Form.Group>
+                    </div>
 
-                    <Form.Group controlId='city' style={{ marginBottom: '1.5rem' }}>
-                        <Form.Label style={{
+                    <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                        <label htmlFor='city' style={{
                             color: 'var(--text-primary)',
                             fontWeight: '500',
                             marginBottom: '0.5rem'
                         }}>
                             City
-                        </Form.Label>
-                        <Form.Control
+                        </label>
+                        <input
                             type='text'
+                            id='city'
+                            className='form-control'
                             placeholder='Enter City'
                             value={city}
                             required
@@ -110,18 +113,20 @@ const ShippingScreen = () => {
                                 fontSize: '1rem'
                             }}
                         />
-                    </Form.Group>
+                    </div>
 
-                    <Form.Group controlId='postalCode' style={{ marginBottom: '1.5rem' }}>
-                        <Form.Label style={{
+                    <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                        <label htmlFor='postalCode' style={{
                             color: 'var(--text-primary)',
                             fontWeight: '500',
                             marginBottom: '0.5rem'
                         }}>
                             Postal Code
-                        </Form.Label>
-                        <Form.Control
+                        </label>
+                        <input
                             type='text'
+                            id='postalCode'
+                            className='form-control'
                             placeholder='Enter Postal Code'
                             value={postalCode}
                             required
@@ -135,18 +140,20 @@ const ShippingScreen = () => {
                                 fontSize: '1rem'
                             }}
                         />
-                    </Form.Group>
+                    </div>
 
-                    <Form.Group controlId='country' style={{ marginBottom: '2rem' }}>
-                        <Form.Label style={{
+                    <div className='form-group' style={{ marginBottom: '2rem' }}>
+                        <label htmlFor='country' style={{
                             color: 'var(--text-primary)',
                             fontWeight: '500',
                             marginBottom: '0.5rem'
                         }}>
                             Country
-                        </Form.Label>
-                        <Form.Control
+                        </label>
+                        <input
                             type='text'
+                            id='country'
+                            className='form-control'
                             placeholder='Enter Country'
                             value={country}
                             required
@@ -160,11 +167,11 @@ const ShippingScreen = () => {
                                 fontSize: '1rem'
                             }}
                         />
-                    </Form.Group>
+                    </div>
 
-                    <Button
+                    <button
                         type='submit'
-                        variant='primary'
+                        className='btn btn-primary'
                         style={{
                             backgroundColor: 'var(--accent-primary)',
                             border: 'none',
@@ -186,8 +193,8 @@ const ShippingScreen = () => {
                         }}
                     >
                         Continue to Payment
-                    </Button>
-                </Form>
+                    </button>
+                </form>
             </div>
         </FormContainer>
     )

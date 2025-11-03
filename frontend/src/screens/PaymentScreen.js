@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -51,19 +50,17 @@ const PaymentScreen = () => {
                     Choose your preferred payment method
                 </p>
                 
-                <Form onSubmit={submitHandler}>
-                    <Form.Group style={{ marginBottom: '2rem' }}>
-                        <Form.Label
-                            as='legend'
-                            style={{
-                                color: 'var(--text-primary)',
-                                fontWeight: '500',
-                                marginBottom: '1rem'
-                            }}
-                        >
+                <form onSubmit={submitHandler}>
+                    <div className='form-group' style={{ marginBottom: '2rem' }}>
+                        <label style={{
+                            color: 'var(--text-primary)',
+                            fontWeight: '500',
+                            marginBottom: '1rem',
+                            display: 'block'
+                        }}>
                             Select Method
-                        </Form.Label>
-                        <Col>
+                        </label>
+                        <div className='col'>
                             <div style={{
                                 backgroundColor: 'var(--bg-tertiary)',
                                 border: '1px solid var(--border-color)',
@@ -73,25 +70,30 @@ const PaymentScreen = () => {
                                 cursor: 'pointer',
                                 transition: 'all 0.3s ease'
                             }}>
-                                <Form.Check
-                                    type='radio'
-                                    label='PayPal or Credit Card'
-                                    id='PayPal'
-                                    name='paymentMethod'
-                                    value='PayPal'
-                                    checked
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
-                                    style={{
-                                        color: 'var(--text-primary)'
-                                    }}
-                                />
+                                <label style={{
+                                    color: 'var(--text-primary)',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center'
+                                }}>
+                                    <input
+                                        type='radio'
+                                        id='PayPal'
+                                        name='paymentMethod'
+                                        value='PayPal'
+                                        checked
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                        style={{ marginRight: '0.5rem' }}
+                                    />
+                                    PayPal or Credit Card
+                                </label>
                             </div>
-                        </Col>
-                    </Form.Group>
+                        </div>
+                    </div>
                     
-                    <Button
+                    <button
                         type='submit'
-                        variant='primary'
+                        className='btn btn-primary'
                         style={{
                             backgroundColor: 'var(--accent-primary)',
                             border: 'none',
@@ -113,8 +115,8 @@ const PaymentScreen = () => {
                         }}
                     >
                         Continue to Review Order
-                    </Button>
-                </Form>
+                    </button>
+                </form>
             </div>
         </FormContainer>
     )

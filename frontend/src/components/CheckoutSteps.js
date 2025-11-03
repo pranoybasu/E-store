@@ -1,6 +1,5 @@
 import React from 'react'
-import { Nav } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
     const stepStyle = (isActive) => ({
@@ -21,8 +20,8 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
     }
 
     return (
-        <Nav
-            className='justify-content-center mb-4'
+        <ul
+            className='nav justify-content-center mb-4'
             style={{
                 backgroundColor: 'var(--bg-secondary)',
                 borderRadius: '12px',
@@ -31,70 +30,62 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
                 marginBottom: '2rem'
             }}
         >
-            <Nav.Item>
+            <li className='nav-item'>
                 {step1 ? (
-                    <LinkContainer to='/login'>
-                        <Nav.Link style={activeStepStyle}>
-                            <i className="fas fa-user" style={{ marginRight: '0.5rem' }}></i>
-                            Sign In
-                        </Nav.Link>
-                    </LinkContainer>
-                ) : (
-                    <Nav.Link disabled style={stepStyle(false)}>
+                    <Link to='/login' className='nav-link' style={activeStepStyle}>
                         <i className="fas fa-user" style={{ marginRight: '0.5rem' }}></i>
                         Sign In
-                    </Nav.Link>
-                )}
-            </Nav.Item>
-
-            <Nav.Item>
-                {step2 ? (
-                    <LinkContainer to='/shipping'>
-                        <Nav.Link style={activeStepStyle}>
-                            <i className="fas fa-shipping-fast" style={{ marginRight: '0.5rem' }}></i>
-                            Shipping
-                        </Nav.Link>
-                    </LinkContainer>
+                    </Link>
                 ) : (
-                    <Nav.Link disabled style={stepStyle(false)}>
+                    <span className='nav-link disabled' style={stepStyle(false)}>
+                        <i className="fas fa-user" style={{ marginRight: '0.5rem' }}></i>
+                        Sign In
+                    </span>
+                )}
+            </li>
+
+            <li className='nav-item'>
+                {step2 ? (
+                    <Link to='/shipping' className='nav-link' style={activeStepStyle}>
                         <i className="fas fa-shipping-fast" style={{ marginRight: '0.5rem' }}></i>
                         Shipping
-                    </Nav.Link>
-                )}
-            </Nav.Item>
-
-            <Nav.Item>
-                {step3 ? (
-                    <LinkContainer to='/payment'>
-                        <Nav.Link style={activeStepStyle}>
-                            <i className="fas fa-credit-card" style={{ marginRight: '0.5rem' }}></i>
-                            Payment
-                        </Nav.Link>
-                    </LinkContainer>
+                    </Link>
                 ) : (
-                    <Nav.Link disabled style={stepStyle(false)}>
+                    <span className='nav-link disabled' style={stepStyle(false)}>
+                        <i className="fas fa-shipping-fast" style={{ marginRight: '0.5rem' }}></i>
+                        Shipping
+                    </span>
+                )}
+            </li>
+
+            <li className='nav-item'>
+                {step3 ? (
+                    <Link to='/payment' className='nav-link' style={activeStepStyle}>
                         <i className="fas fa-credit-card" style={{ marginRight: '0.5rem' }}></i>
                         Payment
-                    </Nav.Link>
-                )}
-            </Nav.Item>
-
-            <Nav.Item>
-                {step4 ? (
-                    <LinkContainer to='/placeorder'>
-                        <Nav.Link style={activeStepStyle}>
-                            <i className="fas fa-check-circle" style={{ marginRight: '0.5rem' }}></i>
-                            Place Order
-                        </Nav.Link>
-                    </LinkContainer>
+                    </Link>
                 ) : (
-                    <Nav.Link disabled style={stepStyle(false)}>
+                    <span className='nav-link disabled' style={stepStyle(false)}>
+                        <i className="fas fa-credit-card" style={{ marginRight: '0.5rem' }}></i>
+                        Payment
+                    </span>
+                )}
+            </li>
+
+            <li className='nav-item'>
+                {step4 ? (
+                    <Link to='/placeorder' className='nav-link' style={activeStepStyle}>
                         <i className="fas fa-check-circle" style={{ marginRight: '0.5rem' }}></i>
                         Place Order
-                    </Nav.Link>
+                    </Link>
+                ) : (
+                    <span className='nav-link disabled' style={stepStyle(false)}>
+                        <i className="fas fa-check-circle" style={{ marginRight: '0.5rem' }}></i>
+                        Place Order
+                    </span>
                 )}
-            </Nav.Item>
-        </Nav>
+            </li>
+        </ul>
     )
 }
 

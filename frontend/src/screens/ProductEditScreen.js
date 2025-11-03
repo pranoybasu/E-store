@@ -2,7 +2,6 @@ import axios from 'axios'
 import API_URL from '../config'
 import React, { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -147,15 +146,16 @@ const ProductEditScreen = () => {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+          <form onSubmit={submitHandler}>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
                 color: 'var(--text-primary)',
                 fontWeight: '500',
-                marginBottom: '0.5rem'
-              }}>Name</Form.Label>
-              <Form.Control
-                type='name'
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Name</label>
+              <input
+                type='text'
                 placeholder='Enter name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -164,18 +164,21 @@ const ProductEditScreen = () => {
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  width: '100%',
+                  fontSize: '1rem'
                 }}
-              ></Form.Control>
-            </Form.Group>
+              />
+            </div>
 
-            <Form.Group controlId='price' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
                 color: 'var(--text-primary)',
                 fontWeight: '500',
-                marginBottom: '0.5rem'
-              }}>Price</Form.Label>
-              <Form.Control
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Price</label>
+              <input
                 type='number'
                 placeholder='Enter price'
                 value={price}
@@ -185,18 +188,21 @@ const ProductEditScreen = () => {
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  width: '100%',
+                  fontSize: '1rem'
                 }}
-              ></Form.Control>
-            </Form.Group>
+              />
+            </div>
 
-            <Form.Group controlId='image' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
                 color: 'var(--text-primary)',
                 fontWeight: '500',
-                marginBottom: '0.5rem'
-              }}>Image URL</Form.Label>
-              <Form.Control
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Image URL</label>
+              <input
                 type='text'
                 placeholder='Enter image url'
                 value={image}
@@ -207,9 +213,11 @@ const ProductEditScreen = () => {
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
-                  marginBottom: '0.75rem'
+                  marginBottom: '0.75rem',
+                  width: '100%',
+                  fontSize: '1rem'
                 }}
-              ></Form.Control>
+              />
               <input
                 type='file'
                 id='image-file'
@@ -224,15 +232,16 @@ const ProductEditScreen = () => {
                 }}
               />
               {uploading && <Loader />}
-            </Form.Group>
+            </div>
 
-            <Form.Group controlId='brand' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
                 color: 'var(--text-primary)',
                 fontWeight: '500',
-                marginBottom: '0.5rem'
-              }}>Brand</Form.Label>
-              <Form.Control
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Brand</label>
+              <input
                 type='text'
                 placeholder='Enter brand'
                 value={brand}
@@ -242,18 +251,21 @@ const ProductEditScreen = () => {
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  width: '100%',
+                  fontSize: '1rem'
                 }}
-              ></Form.Control>
-            </Form.Group>
+              />
+            </div>
 
-            <Form.Group controlId='countInStock' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
                 color: 'var(--text-primary)',
                 fontWeight: '500',
-                marginBottom: '0.5rem'
-              }}>Count In Stock</Form.Label>
-              <Form.Control
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Count In Stock</label>
+              <input
                 type='number'
                 placeholder='Enter countInStock'
                 value={countInStock}
@@ -263,18 +275,21 @@ const ProductEditScreen = () => {
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  width: '100%',
+                  fontSize: '1rem'
                 }}
-              ></Form.Control>
-            </Form.Group>
+              />
+            </div>
 
-            <Form.Group controlId='category' style={{ marginBottom: '1.5rem' }}>
-              <Form.Label style={{
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
                 color: 'var(--text-primary)',
                 fontWeight: '500',
-                marginBottom: '0.5rem'
-              }}>Category</Form.Label>
-              <Form.Control
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Category</label>
+              <input
                 type='text'
                 placeholder='Enter category'
                 value={category}
@@ -284,18 +299,21 @@ const ProductEditScreen = () => {
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  width: '100%',
+                  fontSize: '1rem'
                 }}
-              ></Form.Control>
-            </Form.Group>
+              />
+            </div>
 
-            <Form.Group controlId='description' style={{ marginBottom: '2rem' }}>
-              <Form.Label style={{
+            <div style={{ marginBottom: '2rem' }}>
+              <label style={{
                 color: 'var(--text-primary)',
                 fontWeight: '500',
-                marginBottom: '0.5rem'
-              }}>Description</Form.Label>
-              <Form.Control
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Description</label>
+              <input
                 type='text'
                 placeholder='Enter description'
                 value={description}
@@ -305,12 +323,14 @@ const ProductEditScreen = () => {
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  width: '100%',
+                  fontSize: '1rem'
                 }}
-              ></Form.Control>
-            </Form.Group>
+              />
+            </div>
 
-            <Button
+            <button
               type='submit'
               style={{
                 background: 'var(--accent-primary)',
@@ -322,13 +342,22 @@ const ProductEditScreen = () => {
                 fontWeight: '500',
                 width: '100%',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 2px 8px rgba(0, 113, 227, 0.3)'
+                boxShadow: '0 2px 8px rgba(0, 113, 227, 0.3)',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)'
+                e.target.style.boxShadow = '0 4px 12px rgba(0, 113, 227, 0.4)'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)'
+                e.target.style.boxShadow = '0 2px 8px rgba(0, 113, 227, 0.3)'
               }}
             >
               <i className='fas fa-save' style={{ marginRight: '0.5rem' }}></i>
               Update Product
-            </Button>
-          </Form>
+            </button>
+          </form>
         )}
       </FormContainer>
     </>

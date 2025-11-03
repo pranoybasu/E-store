@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Container } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -27,7 +26,7 @@ const HomeScreen = () => {
       paddingBottom: 'var(--spacing-xl)'
     }}>
       <Meta />
-      <Container>
+      <div className='container'>
         {!keyword ? (
           <div style={{ marginBottom: 'var(--spacing-xl)' }}>
             <ProductCarousel />
@@ -83,7 +82,7 @@ const HomeScreen = () => {
           <Message variant='danger'>{error}</Message>
         ) : (
           <>
-            <Row className='g-4' style={{
+            <div className='row' style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
               gap: 'var(--spacing-lg)',
@@ -94,7 +93,7 @@ const HomeScreen = () => {
                   <Product product={product} />
                 </div>
               ))}
-            </Row>
+            </div>
             
             <div style={{
               display: 'flex',
@@ -109,7 +108,7 @@ const HomeScreen = () => {
             </div>
           </>
         )}
-      </Container>
+      </div>
     </div>
   )
 }

@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import SearchBox from './SearchBox'
 import { logout } from '../actions/userAction'
 
@@ -9,49 +8,66 @@ const Header = () => {
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
+    
+    const [userDropdownOpen, setUserDropdownOpen] = useState(false)
+    const [adminDropdownOpen, setAdminDropdownOpen] = useState(false)
 
     const logoutHandler = () => {
         dispatch(logout())
+        setUserDropdownOpen(false)
+    }
+    
+    const closeDropdowns = () => {
+        setUserDropdownOpen(false)
+        setAdminDropdownOpen(false)
     }
 
     return (
         <header style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
-            <Navbar className="navbar" expand="lg" collapseOnSelect style={{
+            <nav className="navbar" style={{
                 background: 'rgba(26, 26, 26, 0.95)',
-                borderBottom: '1px solid var(--border-color)',
+                borderBottom: '1px solid var(--border-primary)',
                 backdropFilter: 'blur(20px)',
                 padding: '0.75rem 0',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.3)'
             }}>
-                <Container>
-                    <LinkContainer to='/'>
-                        <Navbar.Brand style={{
+                <div className='container' style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '1rem'
+                }}>
+                    <Link to='/' style={{
                             fontSize: '1.5rem',
                             fontWeight: '700',
                             color: 'var(--text-primary)',
                             letterSpacing: '-0.03em',
                             cursor: 'pointer',
-                            transition: 'color 0.3s ease'
+                            transition: 'color 0.3s ease',
+                            textDecoration: 'none'
                         }}>
-                            ⚡ E-Store
-                        </Navbar.Brand>
-                    </LinkContainer>
-                    <Navbar.Toggle
-                        aria-controls="basic-navbar-nav"
-                        style={{
-                            borderColor: 'var(--border-color)',
-                            backgroundColor: 'var(--bg-tertiary)'
-                        }}
-                    >
-                        <span style={{
-                            backgroundImage: "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\")"
-                        }} />
-                    </Navbar.Toggle>
-                    <Navbar.Collapse id="basic-navbar-nav">
+                        ⚡ E-Store
+                    </Link>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        flex: '1',
+                        justifyContent: 'flex-end',
+                        flexWrap: 'wrap'
+                    }}>
                         <SearchBox />
-                        <Nav className="ms-auto" style={{ gap: '0.75rem', alignItems: 'center' }}>
-                            <LinkContainer to='/cart'>
-                                <Nav.Link style={{
+                        <ul className="navbar-nav" style={{
+                            display: 'flex',
+                            gap: '0.75rem',
+                            alignItems: 'center',
+                            listStyle: 'none',
+                            margin: 0,
+                            padding: 0
+                        }}>
+                            <li className='nav-item'>
+                                <Link to='/cart' onClick={closeDropdowns} style={{
                                     color: 'var(--text-secondary)',
                                     fontWeight: '500',
                                     padding: '0.5rem 1rem',
@@ -59,7 +75,8 @@ const Header = () => {
                                     transition: 'all 0.3s ease',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '0.5rem'
+                                    gap: '0.5rem',
+                                    textDecoration: 'none'
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
@@ -72,55 +89,80 @@ const Header = () => {
                                 >
                                     <i className="fas fa-shopping-cart"></i>
                                     <span>Cart</span>
-                                </Nav.Link>
-                            </LinkContainer>
+                                </Link>
+                            </li>
                             {userInfo ? (
-                                <NavDropdown
-                                    title={<span style={{ color: 'var(--text-primary)' }}><i className="fas fa-user"></i> {userInfo.name}</span>}
-                                    id='username'
-                                    className='nav-dropdown'
-                                    style={{
-                                        color: 'var(--text-primary)'
-                                    }}
-                                >
-                                    <LinkContainer to='/profile'>
-                                        <NavDropdown.Item style={{
-                                            background: 'var(--bg-tertiary)',
-                                            color: 'var(--text-primary)',
-                                            transition: 'all 0.3s ease'
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
-                                        }}
-                                        >
-                                            <i className="fas fa-user-circle" style={{ marginRight: '0.5rem' }}></i>
-                                            Profile
-                                        </NavDropdown.Item>
-                                    </LinkContainer>
-                                    <NavDropdown.Item
-                                        onClick={logoutHandler}
+                                <li className='nav-item dropdown'>
+                                    <button
+                                        className='nav-link dropdown-toggle'
+                                        onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                                         style={{
-                                            background: 'var(--bg-tertiary)',
                                             color: 'var(--text-primary)',
-                                            transition: 'all 0.3s ease'
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--accent-danger)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                                            fontWeight: '500',
+                                            padding: '0.5rem 1rem',
+                                            borderRadius: '8px',
+                                            transition: 'all 0.3s ease',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer'
                                         }}
                                     >
-                                        <i className="fas fa-sign-out-alt" style={{ marginRight: '0.5rem' }}></i>
-                                        Logout
-                                    </NavDropdown.Item>
-                                </NavDropdown>
+                                        <i className="fas fa-user"></i> {userInfo.name}
+                                    </button>
+                                    <ul className={`dropdown-menu ${userDropdownOpen ? 'show' : ''}`}>
+                                        <li>
+                                            <Link
+                                                to='/profile'
+                                                className='dropdown-item'
+                                                onClick={closeDropdowns}
+                                                style={{
+                                                    background: 'var(--bg-tertiary)',
+                                                    color: 'var(--text-primary)',
+                                                    transition: 'all 0.3s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                                                }}
+                                            >
+                                                <i className="fas fa-user-circle" style={{ marginRight: '0.5rem' }}></i>
+                                                Profile
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <button
+                                                onClick={logoutHandler}
+                                                className='dropdown-item'
+                                                style={{
+                                                    background: 'var(--bg-tertiary)',
+                                                    color: 'var(--text-primary)',
+                                                    transition: 'all 0.3s ease',
+                                                    border: 'none',
+                                                    width: '100%',
+                                                    textAlign: 'left',
+                                                    cursor: 'pointer'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--accent-danger)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                                                }}
+                                            >
+                                                <i className="fas fa-sign-out-alt" style={{ marginRight: '0.5rem' }}></i>
+                                                Logout
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </li>
                             ) : (
-                                <LinkContainer to='/login'>
-                                    <Nav.Link style={{
+                                <li className='nav-item'>
+                                    <Link to='/login' onClick={closeDropdowns} style={{
                                         color: 'var(--text-secondary)',
                                         fontWeight: '500',
                                         padding: '0.5rem 1rem',
@@ -128,7 +170,8 @@ const Header = () => {
                                         transition: 'all 0.3s ease',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '0.5rem'
+                                        gap: '0.5rem',
+                                        textDecoration: 'none'
                                     }}
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
@@ -141,72 +184,101 @@ const Header = () => {
                                     >
                                         <i className="fas fa-user"></i>
                                         <span>Sign In</span>
-                                    </Nav.Link>
-                                </LinkContainer>
+                                    </Link>
+                                </li>
                             )}
                             {userInfo && userInfo.isAdmin && (
-                                <NavDropdown
-                                    title={<span style={{ color: 'var(--accent-warning)' }}><i className="fas fa-cog"></i> Admin</span>}
-                                    id='adminmenu'
-                                    className='nav-dropdown'
-                                >
-                                    <LinkContainer to='/admin/userlist'>
-                                        <NavDropdown.Item style={{
-                                            background: 'var(--bg-tertiary)',
-                                            color: 'var(--text-primary)',
-                                            transition: 'all 0.3s ease'
+                                <li className='nav-item dropdown'>
+                                    <button
+                                        className='nav-link dropdown-toggle'
+                                        onClick={() => setAdminDropdownOpen(!adminDropdownOpen)}
+                                        style={{
+                                            color: 'var(--accent-warning)',
+                                            fontWeight: '500',
+                                            padding: '0.5rem 1rem',
+                                            borderRadius: '8px',
+                                            transition: 'all 0.3s ease',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer'
                                         }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
-                                        }}
-                                        >
-                                            <i className="fas fa-users" style={{ marginRight: '0.5rem' }}></i>
-                                            Users
-                                        </NavDropdown.Item>
-                                    </LinkContainer>
-                                    <LinkContainer to='/admin/productlist'>
-                                        <NavDropdown.Item style={{
-                                            background: 'var(--bg-tertiary)',
-                                            color: 'var(--text-primary)',
-                                            transition: 'all 0.3s ease'
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
-                                        }}
-                                        >
-                                            <i className="fas fa-box" style={{ marginRight: '0.5rem' }}></i>
-                                            Products
-                                        </NavDropdown.Item>
-                                    </LinkContainer>
-                                    <LinkContainer to='/admin/orderlist'>
-                                        <NavDropdown.Item style={{
-                                            background: 'var(--bg-tertiary)',
-                                            color: 'var(--text-primary)',
-                                            transition: 'all 0.3s ease'
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
-                                        }}
-                                        >
-                                            <i className="fas fa-receipt" style={{ marginRight: '0.5rem' }}></i>
-                                            Orders
-                                        </NavDropdown.Item>
-                                    </LinkContainer>
-                                </NavDropdown>
+                                    >
+                                        <i className="fas fa-cog"></i> Admin
+                                    </button>
+                                    <ul className={`dropdown-menu ${adminDropdownOpen ? 'show' : ''}`}>
+                                        <li>
+                                            <Link
+                                                to='/admin/userlist'
+                                                className='dropdown-item'
+                                                onClick={closeDropdowns}
+                                                style={{
+                                                    background: 'var(--bg-tertiary)',
+                                                    color: 'var(--text-primary)',
+                                                    transition: 'all 0.3s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                                                }}
+                                            >
+                                                <i className="fas fa-users" style={{ marginRight: '0.5rem' }}></i>
+                                                Users
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to='/admin/productlist'
+                                                className='dropdown-item'
+                                                onClick={closeDropdowns}
+                                                style={{
+                                                    background: 'var(--bg-tertiary)',
+                                                    color: 'var(--text-primary)',
+                                                    transition: 'all 0.3s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                                                }}
+                                            >
+                                                <i className="fas fa-box" style={{ marginRight: '0.5rem' }}></i>
+                                                Products
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to='/admin/orderlist'
+                                                className='dropdown-item'
+                                                onClick={closeDropdowns}
+                                                style={{
+                                                    background: 'var(--bg-tertiary)',
+                                                    color: 'var(--text-primary)',
+                                                    transition: 'all 0.3s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                                                }}
+                                            >
+                                                <i className="fas fa-receipt" style={{ marginRight: '0.5rem' }}></i>
+                                                Orders
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </li>
                             )}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </header>
     )
 }
