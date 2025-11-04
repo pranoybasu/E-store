@@ -60,7 +60,7 @@ const PlaceOrderScreen = () => {
             {/* Shipping Section */}
             <div className='list-group-item' style={{
               backgroundColor: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
+              border: '1px solid var(--border-primary)',
               borderRadius: '12px',
               padding: '1.5rem',
               marginBottom: '1rem'
@@ -85,7 +85,7 @@ const PlaceOrderScreen = () => {
             {/* Payment Section */}
             <div className='list-group-item' style={{
               backgroundColor: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
+              border: '1px solid var(--border-primary)',
               borderRadius: '12px',
               padding: '1.5rem',
               marginBottom: '1rem'
@@ -108,7 +108,7 @@ const PlaceOrderScreen = () => {
             {/* Order Items Section */}
             <div className='list-group-item' style={{
               backgroundColor: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
+              border: '1px solid var(--border-primary)',
               borderRadius: '12px',
               padding: '1.5rem',
               marginBottom: '1rem'
@@ -133,7 +133,7 @@ const PlaceOrderScreen = () => {
                       style={{
                         backgroundColor: 'transparent',
                         border: 'none',
-                        borderBottom: index < cart.cartItems.length - 1 ? '1px solid var(--border-color)' : 'none',
+                        borderBottom: index < cart.cartItems.length - 1 ? '1px solid var(--border-primary)' : 'none',
                         padding: '1rem 0'
                       }}
                     >
@@ -145,7 +145,7 @@ const PlaceOrderScreen = () => {
                             style={{
                               width: '100%',
                               borderRadius: '8px',
-                              border: '1px solid var(--border-color)'
+                              border: '1px solid var(--border-primary)'
                             }}
                           />
                         </div>
@@ -178,7 +178,7 @@ const PlaceOrderScreen = () => {
         <div className='col-md-4'>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             position: 'sticky',
             top: '2rem'
@@ -188,7 +188,7 @@ const PlaceOrderScreen = () => {
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1.5rem',
-                borderBottom: '1px solid var(--border-color)'
+                borderBottom: '1px solid var(--border-primary)'
               }}>
                 <h2 style={{
                   color: 'var(--text-primary)',
@@ -237,8 +237,8 @@ const PlaceOrderScreen = () => {
                 backgroundColor: 'transparent',
                 border: 'none',
                 padding: '1rem 1.5rem',
-                borderTop: '1px solid var(--border-color)',
-                borderBottom: '1px solid var(--border-color)'
+                borderTop: '1px solid var(--border-primary)',
+                borderBottom: '1px solid var(--border-primary)'
               }}>
                 <div className='row'>
                   <div className='col' style={{ color: 'var(--text-primary)', fontSize: '1.1rem', fontWeight: '600' }}>Total</div>

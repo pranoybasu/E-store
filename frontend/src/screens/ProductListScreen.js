@@ -133,7 +133,7 @@ const ProductListScreen = () => {
         <>
           <div style={{
             background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             overflow: 'hidden',
             marginBottom: '2rem'
@@ -143,7 +143,7 @@ const ProductListScreen = () => {
                 <thead>
                   <tr style={{
                     background: 'var(--bg-tertiary)',
-                    borderBottom: '2px solid var(--border-color)'
+                    borderBottom: '2px solid var(--border-primary)'
                   }}>
                     <th style={{
                       padding: '1rem',
@@ -199,7 +199,7 @@ const ProductListScreen = () => {
                   {products.map((product) => (
                     <tr key={product._id} style={{
                       background: 'var(--bg-secondary)',
-                      borderBottom: '1px solid var(--border-color)'
+                      borderBottom: '1px solid var(--border-primary)'
                     }}>
                       <td style={{
                         padding: '1rem',
@@ -231,7 +231,7 @@ const ProductListScreen = () => {
                           <button
                             style={{
                               background: 'var(--bg-tertiary)',
-                              border: '1px solid var(--border-color)',
+                              border: '1px solid var(--border-primary)',
                               color: 'var(--text-primary)',
                               marginRight: '0.5rem',
                               padding: '0.4rem 0.8rem',

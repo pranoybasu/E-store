@@ -65,7 +65,7 @@ const LoginScreen = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             color: 'var(--text-primary)',
                             padding: '0.75rem'
@@ -91,7 +91,7 @@ const LoginScreen = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             color: 'var(--text-primary)',
                             padding: '0.75rem'

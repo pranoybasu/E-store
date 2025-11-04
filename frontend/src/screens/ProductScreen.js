@@ -67,7 +67,7 @@ const ProductScreen = () => {
            style={{
              backgroundColor: 'var(--bg-secondary)',
              color: 'var(--text-primary)',
-             border: '1px solid var(--border-color)',
+             border: '1px solid var(--border-primary)',
              padding: '0.75rem 1.5rem',
              borderRadius: '8px',
              transition: 'all 0.3s ease',
@@ -80,7 +80,7 @@ const ProductScreen = () => {
            }}
            onMouseLeave={(e) => {
              e.target.style.backgroundColor = 'var(--bg-secondary)';
-             e.target.style.borderColor = 'var(--border-color)';
+             e.target.style.borderColor = 'var(--border-primary)';
            }}
          >
            ← Go Back
@@ -94,7 +94,7 @@ const ProductScreen = () => {
                  backgroundColor: 'var(--bg-secondary)',
                  borderRadius: '12px',
                  padding: '1.5rem',
-                 border: '1px solid var(--border-color)'
+                 border: '1px solid var(--border-primary)'
                }}>
                  <img
                    src={product.image}
@@ -155,7 +155,7 @@ const ProductScreen = () => {
                         <div className='col-md-3'>
                         <div style={{
                           backgroundColor: 'var(--bg-secondary)',
-                          border: '1px solid var(--border-color)',
+                          border: '1px solid var(--border-primary)',
                           borderRadius: '12px',
                           position: 'sticky',
                           top: '2rem'
@@ -163,7 +163,7 @@ const ProductScreen = () => {
                             <div className='list-group list-group-flush'>
                             <div className='list-group-item' style={{
                               backgroundColor: 'transparent',
-                              borderColor: 'var(--border-color)',
+                              borderColor: 'var(--border-primary)',
                               color: 'var(--text-primary)'
                             }}>
                                 <div className='row'>
@@ -176,7 +176,7 @@ const ProductScreen = () => {
 
                             <div className='list-group-item' style={{
                               backgroundColor: 'transparent',
-                              borderColor: 'var(--border-color)',
+                              borderColor: 'var(--border-primary)',
                               color: 'var(--text-primary)'
                             }}>
                                 <div className='row'>
@@ -194,7 +194,7 @@ const ProductScreen = () => {
                             {product.countInStock > 0 && (
                     <div className='list-group-item' style={{
                       backgroundColor: 'transparent',
-                      borderColor: 'var(--border-color)',
+                      borderColor: 'var(--border-primary)',
                       color: 'var(--text-primary)'
                     }}>
                       <div className='row'>
@@ -206,7 +206,7 @@ const ProductScreen = () => {
                             style={{
                               backgroundColor: 'var(--bg-tertiary)',
                               color: 'var(--text-primary)',
-                              border: '1px solid var(--border-color)',
+                              border: '1px solid var(--border-primary)',
                               borderRadius: '6px',
                               padding: '0.5rem',
                               width: '100%'
@@ -278,7 +278,7 @@ const ProductScreen = () => {
                       color: 'var(--text-primary)',
                       marginBottom: '1.5rem',
                       paddingBottom: '1rem',
-                      borderBottom: '2px solid var(--border-color)'
+                      borderBottom: '2px solid var(--border-primary)'
                     }}>
                       Customer Reviews
                     </h2>
@@ -290,7 +290,7 @@ const ProductScreen = () => {
                           className='list-group-item'
                           style={{
                             backgroundColor: 'var(--bg-secondary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             padding: '1.5rem',
                             marginBottom: '1rem'
@@ -318,7 +318,7 @@ const ProductScreen = () => {
                         ))}
                         <div className='list-group-item' style={{
                           backgroundColor: 'var(--bg-secondary)',
-                          border: '1px solid var(--border-color)',
+                          border: '1px solid var(--border-primary)',
                           borderRadius: '12px',
                           padding: '2rem',
                           marginTop: '2rem'
@@ -346,7 +346,7 @@ const ProductScreen = () => {
                           style={{
                             backgroundColor: 'var(--bg-tertiary)',
                             color: 'var(--text-primary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             padding: '0.75rem',
                             width: '100%'
@@ -372,7 +372,7 @@ const ProductScreen = () => {
                           style={{
                             backgroundColor: 'var(--bg-tertiary)',
                             color: 'var(--text-primary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             padding: '0.75rem',
                             resize: 'vertical',

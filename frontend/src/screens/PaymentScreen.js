@@ -32,7 +32,7 @@ const PaymentScreen = () => {
                 backgroundColor: 'var(--bg-secondary)',
                 borderRadius: '12px',
                 padding: '2rem',
-                border: '1px solid var(--border-color)'
+                border: '1px solid var(--border-primary)'
             }}>
                 <h1 style={{
                     color: 'var(--text-primary)',
@@ -63,7 +63,7 @@ const PaymentScreen = () => {
                         <div className='col'>
                             <div style={{
                                 backgroundColor: 'var(--bg-tertiary)',
-                                border: '1px solid var(--border-color)',
+                                border: '1px solid var(--border-primary)',
                                 borderRadius: '8px',
                                 padding: '1rem',
                                 marginBottom: '1rem',

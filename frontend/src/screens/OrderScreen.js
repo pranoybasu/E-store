@@ -106,7 +106,7 @@ const OrderScreen = () => {
           {/* Shipping Section */}
           <div style={{
             background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             padding: '1.5rem',
             marginBottom: '1.5rem'
@@ -150,7 +150,7 @@ const OrderScreen = () => {
           {/* Payment Section */}
           <div style={{
             background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             padding: '1.5rem',
             marginBottom: '1.5rem'
@@ -181,7 +181,7 @@ const OrderScreen = () => {
           {/* Order Items Section */}
           <div style={{
             background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             padding: '1.5rem'
           }}>
@@ -205,7 +205,7 @@ const OrderScreen = () => {
                     display: 'flex',
                     alignItems: 'center',
                     padding: '1rem 0',
-                    borderBottom: index < order.orderItems.length - 1 ? '1px solid var(--border-color)' : 'none'
+                    borderBottom: index < order.orderItems.length - 1 ? '1px solid var(--border-primary)' : 'none'
                   }}>
                     <div style={{ width: '80px', marginRight: '1rem' }}>
                       <img
@@ -249,7 +249,7 @@ const OrderScreen = () => {
           <div style={{ position: 'sticky', top: '2rem' }}>
             <div style={{
               background: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
+              border: '1px solid var(--border-primary)',
               borderRadius: '12px',
               padding: '1.5rem'
             }}>
@@ -267,7 +267,7 @@ const OrderScreen = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   padding: '0.75rem 0',
-                  borderBottom: '1px solid var(--border-color)',
+                  borderBottom: '1px solid var(--border-primary)',
                   color: 'var(--text-secondary)'
                 }}>
                   <span>Items</span>
@@ -277,7 +277,7 @@ const OrderScreen = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   padding: '0.75rem 0',
-                  borderBottom: '1px solid var(--border-color)',
+                  borderBottom: '1px solid var(--border-primary)',
                   color: 'var(--text-secondary)'
                 }}>
                   <span>Shipping</span>
@@ -287,7 +287,7 @@ const OrderScreen = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   padding: '0.75rem 0',
-                  borderBottom: '1px solid var(--border-color)',
+                  borderBottom: '1px solid var(--border-primary)',
                   color: 'var(--text-secondary)'
                 }}>
                   <span>Tax</span>

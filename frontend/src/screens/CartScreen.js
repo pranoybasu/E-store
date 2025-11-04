@@ -64,7 +64,7 @@ const CartScreen = () => {
                   className='list-group-item'
                   style={{
                     backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-color)',
+                    border: '1px solid var(--border-primary)',
                     borderRadius: '12px',
                     padding: '1.5rem',
                     marginBottom: '1rem'
@@ -78,7 +78,7 @@ const CartScreen = () => {
                         style={{
                           width: '100%',
                           borderRadius: '8px',
-                          border: '1px solid var(--border-color)'
+                          border: '1px solid var(--border-primary)'
                         }}
                       />
                     </div>
@@ -116,7 +116,7 @@ const CartScreen = () => {
                         }
                         style={{
                           backgroundColor: 'var(--bg-tertiary)',
-                          border: '1px solid var(--border-color)',
+                          border: '1px solid var(--border-primary)',
                           borderRadius: '8px',
                           color: 'var(--text-primary)',
                           padding: '0.5rem',
@@ -174,7 +174,7 @@ const CartScreen = () => {
         <div className='col-md-4'>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             position: 'sticky',
             top: '2rem'

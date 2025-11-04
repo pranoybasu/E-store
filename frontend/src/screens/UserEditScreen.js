@@ -57,7 +57,7 @@ const UserEditScreen = () => {
           display: 'inline-flex',
           alignItems: 'center',
           background: 'var(--bg-secondary)',
-          border: '1px solid var(--border-color)',
+          border: '1px solid var(--border-primary)',
           color: 'var(--text-primary)',
           padding: '0.75rem 1.5rem',
           borderRadius: '8px',
@@ -118,7 +118,7 @@ const UserEditScreen = () => {
                 style={{
                   width: '100%',
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -127,7 +127,7 @@ const UserEditScreen = () => {
                   transition: 'border-color 0.2s ease'
                 }}
                 onFocus={(e) => e.target.style.borderColor = 'var(--accent-primary)'}
-                onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--border-primary)'}
               />
             </div>
 
@@ -147,7 +147,7 @@ const UserEditScreen = () => {
                 style={{
                   width: '100%',
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -156,14 +156,14 @@ const UserEditScreen = () => {
                   transition: 'border-color 0.2s ease'
                 }}
                 onFocus={(e) => e.target.style.borderColor = 'var(--accent-primary)'}
-                onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--border-primary)'}
               />
             </div>
 
             <div style={{ marginBottom: '2rem' }}>
               <div style={{
                 background: 'var(--bg-tertiary)',
-                border: '1px solid var(--border-color)',
+                border: '1px solid var(--border-primary)',
                 borderRadius: '8px',
                 padding: '1rem'
               }}>

@@ -7,7 +7,7 @@ const FormContainer = ({ children }) => {
                 <div className='col-12 col-md-6'>
                     <div style={{
                         background: 'var(--bg-secondary)',
-                        border: '1px solid var(--border-color)',
+                        border: '1px solid var(--border-primary)',
                         borderRadius: '12px',
                         padding: '2rem',
                         marginTop: '2rem',

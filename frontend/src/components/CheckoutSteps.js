@@ -26,7 +26,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
                 backgroundColor: 'var(--bg-secondary)',
                 borderRadius: '12px',
                 padding: '1rem',
-                border: '1px solid var(--border-color)',
+                border: '1px solid var(--border-primary)',
                 marginBottom: '2rem'
             }}
         >

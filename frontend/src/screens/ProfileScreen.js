@@ -44,15 +44,29 @@ const ProfileScreen = () => {
     }
   }, [dispatch, navigate, userInfo, user, success])
 
+  // Password complexity regex
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+
   const submitHandler = (e) => {
     e.preventDefault()
-    if (password !== confirmPassword) {
-      setMessage('Passwords do not match')
-    } else {
-        //dispatch update user
-        if (user && user._id) {
-          dispatch(updateUserProfile({ id: user._id, name, email, password }))
-        }
+    setMessage(null)
+    
+    // Only validate password if user is trying to change it
+    if (password) {
+      if (!passwordRegex.test(password)) {
+        setMessage('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)')
+        return
+      }
+      
+      if (password !== confirmPassword) {
+        setMessage('Passwords do not match')
+        return
+      }
+    }
+    
+    // Dispatch update user
+    if (user && user._id) {
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
   }
 
@@ -62,7 +76,7 @@ const ProfileScreen = () => {
         <div className='col-md-4'>
           <div style={{
             background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             padding: '1.5rem',
             marginBottom: '2rem'
@@ -102,7 +116,7 @@ const ProfileScreen = () => {
                   onChange={(e) => setName(e.target.value)}
                   style={{
                     background: 'var(--bg-tertiary)',
-                    border: '1px solid var(--border-color)',
+                    border: '1px solid var(--border-primary)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
                     padding: '0.75rem',
@@ -128,7 +142,7 @@ const ProfileScreen = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   style={{
                     background: 'var(--bg-tertiary)',
-                    border: '1px solid var(--border-color)',
+                    border: '1px solid var(--border-primary)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
                     padding: '0.75rem',
@@ -154,13 +168,21 @@ const ProfileScreen = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   style={{
                     background: 'var(--bg-tertiary)',
-                    border: '1px solid var(--border-color)',
+                    border: '1px solid var(--border-primary)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
                     padding: '0.75rem',
                     width: '100%'
                   }}
                 />
+                <small style={{
+                  display: 'block',
+                  marginTop: '0.5rem',
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.85rem'
+                }}>
+                  Min. 8 characters with uppercase, lowercase, number & special character (@$!%*?&)
+                </small>
               </div>
 
               <div className='form-group' style={{ marginBottom: '1.5rem' }}>
@@ -180,7 +202,7 @@ const ProfileScreen = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   style={{
                     background: 'var(--bg-tertiary)',
-                    border: '1px solid var(--border-color)',
+                    border: '1px solid var(--border-primary)',
                     borderRadius: '8px',
                     color: 'var(--text-primary)',
                     padding: '0.75rem',
@@ -224,7 +246,7 @@ const ProfileScreen = () => {
         <div className='col-md-8'>
           <div style={{
             background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            border: '1px solid var(--border-primary)',
             borderRadius: '12px',
             padding: '1.5rem'
           }}>
@@ -259,7 +281,7 @@ const ProfileScreen = () => {
                   </thead>
                   <tbody>
                     {orders && orders.length > 0 ? orders.map(order => (
-                      <tr key={order._id} style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+                      <tr key={order._id} style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border-primary)' }}>
                         <td style={{ color: 'var(--text-secondary)', padding: '1rem' }}>{order._id}</td>
                         <td style={{ color: 'var(--text-secondary)', padding: '1rem' }}>{order.createdAt.substring(0, 10)}</td>
                         <td style={{ color: 'var(--accent-primary)', fontWeight: '600', padding: '1rem' }}>${order.totalPrice}</td>
@@ -286,10 +308,9 @@ const ProfileScreen = () => {
                         <td style={{ padding: '1rem' }}>
                           <Link to={`/order/${order._id}`}>
                             <button
-                              className='btn btn-sm'
                               style={{
                                 background: 'var(--bg-tertiary)',
-                                border: '1px solid var(--border-color)',
+                                border: '1px solid var(--border-primary)',
                                 color: 'var(--text-primary)',
                                 padding: '0.5rem 1rem',
                                 borderRadius: '6px',

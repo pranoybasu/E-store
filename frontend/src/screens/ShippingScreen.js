@@ -42,7 +42,7 @@ const ShippingScreen = () => {
                 backgroundColor: 'var(--bg-secondary)',
                 borderRadius: '12px',
                 padding: '2rem',
-                border: '1px solid var(--border-color)'
+                border: '1px solid var(--border-primary)'
             }}>
                 <h1 style={{
                     color: 'var(--text-primary)',
@@ -79,7 +79,7 @@ const ShippingScreen = () => {
                             onChange={(e) => setAddress(e.target.value)}
                             style={{
                                 backgroundColor: 'var(--bg-tertiary)',
-                                border: '1px solid var(--border-color)',
+                                border: '1px solid var(--border-primary)',
                                 borderRadius: '8px',
                                 color: 'var(--text-primary)',
                                 padding: '0.75rem',
@@ -106,7 +106,7 @@ const ShippingScreen = () => {
                             onChange={(e) => setCity(e.target.value)}
                             style={{
                                 backgroundColor: 'var(--bg-tertiary)',
-                                border: '1px solid var(--border-color)',
+                                border: '1px solid var(--border-primary)',
                                 borderRadius: '8px',
                                 color: 'var(--text-primary)',
                                 padding: '0.75rem',
@@ -133,7 +133,7 @@ const ShippingScreen = () => {
                             onChange={(e) => setPostalCode(e.target.value)}
                             style={{
                                 backgroundColor: 'var(--bg-tertiary)',
-                                border: '1px solid var(--border-color)',
+                                border: '1px solid var(--border-primary)',
                                 borderRadius: '8px',
                                 color: 'var(--text-primary)',
                                 padding: '0.75rem',
@@ -160,7 +160,7 @@ const ShippingScreen = () => {
                             onChange={(e) => setCountry(e.target.value)}
                             style={{
                                 backgroundColor: 'var(--bg-tertiary)',
-                                border: '1px solid var(--border-color)',
+                                border: '1px solid var(--border-primary)',
                                 borderRadius: '8px',
                                 color: 'var(--text-primary)',
                                 padding: '0.75rem',

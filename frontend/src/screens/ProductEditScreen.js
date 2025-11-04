@@ -102,7 +102,7 @@ const ProductEditScreen = () => {
           display: 'inline-flex',
           alignItems: 'center',
           background: 'var(--bg-secondary)',
-          border: '1px solid var(--border-color)',
+          border: '1px solid var(--border-primary)',
           color: 'var(--text-primary)',
           padding: '0.75rem 1.5rem',
           borderRadius: '8px',
@@ -161,7 +161,7 @@ const ProductEditScreen = () => {
                 onChange={(e) => setName(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -185,7 +185,7 @@ const ProductEditScreen = () => {
                 onChange={(e) => setPrice(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -209,7 +209,7 @@ const ProductEditScreen = () => {
                 onChange={(e) => setImage(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -224,7 +224,7 @@ const ProductEditScreen = () => {
                 onChange={uploadFileHandler}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -248,7 +248,7 @@ const ProductEditScreen = () => {
                 onChange={(e) => setBrand(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -272,7 +272,7 @@ const ProductEditScreen = () => {
                 onChange={(e) => setCountInStock(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -296,7 +296,7 @@ const ProductEditScreen = () => {
                 onChange={(e) => setCategory(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',
@@ -320,7 +320,7 @@ const ProductEditScreen = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-color)',
+                  border: '1px solid var(--border-primary)',
                   color: 'var(--text-primary)',
                   padding: '0.75rem',
                   borderRadius: '8px',

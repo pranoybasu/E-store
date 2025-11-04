@@ -24,6 +24,9 @@ const RegisterScreen = () => {
     // Check for redirect in URL params first, then query string, then default to '/'
     const redirect = params.redirect || (location.search ? new URLSearchParams(location.search).get('redirect') : null) || '/'
 
+    // Password complexity regex
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+
     useEffect(() => {
         if(userInfo) {
             navigate(redirect)
@@ -32,11 +35,19 @@ const RegisterScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        //dispatch register
+        setMessage(null)
+        
+        // Validate password complexity
+        if (!passwordRegex.test(password)) {
+            setMessage('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)')
+            return
+        }
+        
+        // Check if passwords match
         if(password !== confirmPassword) {
-            setMessage('Passwords do not match!') 
+            setMessage('Passwords do not match!')
         } else {
-        dispatch(register(name, email, password))
+            dispatch(register(name, email, password))
         }
     }
 
@@ -74,7 +85,7 @@ const RegisterScreen = () => {
                         onChange={(e) => setName(e.target.value)}
                         style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             color: 'var(--text-primary)',
                             padding: '0.75rem'
@@ -100,7 +111,7 @@ const RegisterScreen = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             color: 'var(--text-primary)',
                             padding: '0.75rem'
@@ -126,12 +137,20 @@ const RegisterScreen = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             color: 'var(--text-primary)',
                             padding: '0.75rem'
                         }}
                     />
+                    <small style={{
+                        display: 'block',
+                        marginTop: '0.5rem',
+                        color: 'var(--text-secondary)',
+                        fontSize: '0.85rem'
+                    }}>
+                        Min. 8 characters with uppercase, lowercase, number & special character (@$!%*?&)
+                    </small>
                 </div>
 
                 <div className='form-group' style={{ marginBottom: '1.5rem' }}>
@@ -152,7 +171,7 @@ const RegisterScreen = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: '8px',
                             color: 'var(--text-primary)',
                             padding: '0.75rem'

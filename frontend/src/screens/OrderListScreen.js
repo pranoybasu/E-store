@@ -55,7 +55,7 @@ const OrderListScreen = () => {
       ) : (
         <div style={{
           background: 'var(--bg-secondary)',
-          border: '1px solid var(--border-color)',
+          border: '1px solid var(--border-primary)',
           borderRadius: '12px',
           overflow: 'hidden'
         }}>
@@ -64,7 +64,7 @@ const OrderListScreen = () => {
               <thead>
                 <tr style={{
                   background: 'var(--bg-tertiary)',
-                  borderBottom: '2px solid var(--border-color)'
+                  borderBottom: '2px solid var(--border-primary)'
                 }}>
                   <th style={{
                     padding: '1rem',
@@ -128,7 +128,7 @@ const OrderListScreen = () => {
                 {orders.map((order) => (
                   <tr key={order._id} style={{
                     background: 'var(--bg-secondary)',
-                    borderBottom: '1px solid var(--border-color)',
+                    borderBottom: '1px solid var(--border-primary)',
                     transition: 'background 0.2s ease'
                   }}>
                     <td style={{
@@ -177,7 +177,7 @@ const OrderListScreen = () => {
                         <button
                           style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-color)',
+                            border: '1px solid var(--border-primary)',
                             color: 'var(--text-primary)',
                             padding: '0.4rem 0.8rem',
                             borderRadius: '6px',
