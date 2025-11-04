@@ -8,7 +8,6 @@ A full-stack MERN (MongoDB, Express, React, Node.js) e-commerce application feat
 
 ### 🔑 Test Credentials
 - **Regular User:** john@email.com / 123456
-- **Admin User:** admin@email.com / 123456
 
 ## ✨ Key Features
 
