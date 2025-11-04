@@ -37,7 +37,7 @@ const OrderScreen = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  if (!loading) {
+  if (!loading && order) {
     //   Calculate prices
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2)
@@ -68,7 +68,7 @@ const OrderScreen = () => {
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
-    } else if (!order.isPaid) {
+    } else if (!order.isPaid && order.paymentMethod === 'PayPal') {
       if (!window.paypal) {
         addPayPalScript()
       } else {
@@ -308,9 +308,42 @@ const OrderScreen = () => {
 
               {!order.isPaid && (
                 <div style={{ marginTop: '1.5rem' }}>
-                  {loadingPay && <Loader />}
-                  {!sdkReady ? <Loader /> : (
-                    <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
+                  {order.paymentMethod === 'PayPal' ? (
+                    <>
+                      {loadingPay && <Loader />}
+                      {!sdkReady ? <Loader /> : (
+                        <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
+                      )}
+                    </>
+                  ) : (
+                    <div style={{
+                      padding: '1rem',
+                      backgroundColor: 'var(--bg-tertiary)',
+                      border: '1px solid var(--border-primary)',
+                      borderRadius: '8px',
+                      textAlign: 'center'
+                    }}>
+                      <i className="fas fa-money-bill-wave" style={{
+                        fontSize: '2rem',
+                        color: 'var(--accent-success)',
+                        marginBottom: '0.75rem',
+                        display: 'block'
+                      }}></i>
+                      <p style={{
+                        color: 'var(--text-primary)',
+                        fontWeight: '600',
+                        marginBottom: '0.5rem'
+                      }}>
+                        Cash on Delivery
+                      </p>
+                      <p style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: '0.9rem',
+                        margin: 0
+                      }}>
+                        Payment will be collected upon delivery
+                      </p>
+                    </div>
                   )}
                 </div>
               )}

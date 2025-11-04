@@ -61,31 +61,113 @@ const PaymentScreen = () => {
                             Select Method
                         </label>
                         <div className='col'>
+                            {/* PayPal / Credit Card Option */}
                             <div style={{
-                                backgroundColor: 'var(--bg-tertiary)',
-                                border: '1px solid var(--border-primary)',
+                                backgroundColor: paymentMethod === 'PayPal' ? 'var(--bg-tertiary)' : 'transparent',
+                                border: `2px solid ${paymentMethod === 'PayPal' ? 'var(--accent-primary)' : 'var(--border-primary)'}`,
                                 borderRadius: '8px',
                                 padding: '1rem',
                                 marginBottom: '1rem',
                                 cursor: 'pointer',
                                 transition: 'all 0.3s ease'
-                            }}>
+                            }}
+                            onClick={() => setPaymentMethod('PayPal')}
+                            onMouseEnter={(e) => {
+                                if (paymentMethod !== 'PayPal') {
+                                    e.currentTarget.style.borderColor = 'var(--accent-primary)'
+                                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (paymentMethod !== 'PayPal') {
+                                    e.currentTarget.style.borderColor = 'var(--border-primary)'
+                                    e.currentTarget.style.backgroundColor = 'transparent'
+                                }
+                            }}
+                            >
                                 <label style={{
                                     color: 'var(--text-primary)',
                                     cursor: 'pointer',
                                     display: 'flex',
-                                    alignItems: 'center'
+                                    alignItems: 'center',
+                                    margin: 0
                                 }}>
                                     <input
                                         type='radio'
                                         id='PayPal'
                                         name='paymentMethod'
                                         value='PayPal'
-                                        checked
+                                        checked={paymentMethod === 'PayPal'}
                                         onChange={(e) => setPaymentMethod(e.target.value)}
-                                        style={{ marginRight: '0.5rem' }}
+                                        style={{
+                                            marginRight: '0.75rem',
+                                            accentColor: 'var(--accent-primary)'
+                                        }}
                                     />
-                                    PayPal or Credit Card
+                                    <div>
+                                        <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>
+                                            <i className="fab fa-paypal" style={{ marginRight: '0.5rem', color: 'var(--accent-primary)' }}></i>
+                                            PayPal or Credit Card
+                                        </div>
+                                        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                                            Secure payment via PayPal
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            {/* Cash on Delivery Option */}
+                            <div style={{
+                                backgroundColor: paymentMethod === 'Cash on Delivery' ? 'var(--bg-tertiary)' : 'transparent',
+                                border: `2px solid ${paymentMethod === 'Cash on Delivery' ? 'var(--accent-primary)' : 'var(--border-primary)'}`,
+                                borderRadius: '8px',
+                                padding: '1rem',
+                                marginBottom: '1rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onClick={() => setPaymentMethod('Cash on Delivery')}
+                            onMouseEnter={(e) => {
+                                if (paymentMethod !== 'Cash on Delivery') {
+                                    e.currentTarget.style.borderColor = 'var(--accent-primary)'
+                                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (paymentMethod !== 'Cash on Delivery') {
+                                    e.currentTarget.style.borderColor = 'var(--border-primary)'
+                                    e.currentTarget.style.backgroundColor = 'transparent'
+                                }
+                            }}
+                            >
+                                <label style={{
+                                    color: 'var(--text-primary)',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    margin: 0
+                                }}>
+                                    <input
+                                        type='radio'
+                                        id='CashOnDelivery'
+                                        name='paymentMethod'
+                                        value='Cash on Delivery'
+                                        checked={paymentMethod === 'Cash on Delivery'}
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                        style={{
+                                            marginRight: '0.75rem',
+                                            accentColor: 'var(--accent-primary)'
+                                        }}
+                                    />
+                                    <div>
+                                        <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>
+                                            <i className="fas fa-money-bill-wave" style={{ marginRight: '0.5rem', color: 'var(--accent-success)' }}></i>
+                                            Cash on Delivery
+                                        </div>
+                                        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                                            Pay when you receive your order
+                                        </div>
+                                    </div>
                                 </label>
                             </div>
                         </div>

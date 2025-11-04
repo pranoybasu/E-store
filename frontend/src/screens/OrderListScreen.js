@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listOrders } from '../actions/orderActions'
+import { listOrders, deleteOrder, payOrderAdmin, deliverOrder } from '../actions/orderActions'
+import { ORDER_DELETE_RESET } from '../constants/orderConstants'
 
 const OrderListScreen = () => {
   const navigate = useNavigate()
@@ -12,16 +13,38 @@ const OrderListScreen = () => {
   const orderList = useSelector((state) => state.orderList)
   const { loading, error, orders } = orderList
 
+  const orderDelete = useSelector((state) => state.orderDelete)
+  const { success: successDelete } = orderDelete
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listOrders())
+      if (successDelete) {
+        dispatch({ type: ORDER_DELETE_RESET })
+      }
     } else {
       navigate('/login')
     }
-  }, [dispatch, navigate, userInfo])
+  }, [dispatch, navigate, userInfo, successDelete])
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure you want to delete this order?')) {
+      dispatch(deleteOrder(id))
+    }
+  }
+
+  const markAsPaidHandler = (id) => {
+    if (window.confirm('Mark this order as paid?')) {
+      dispatch(payOrderAdmin(id))
+    }
+  }
+
+  const markAsDeliveredHandler = (order) => {
+    dispatch(deliverOrder(order))
+  }
 
   return (
     <div className='container' style={{ padding: '2rem 0' }}>
@@ -74,6 +97,14 @@ const OrderListScreen = () => {
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>ID</th>
+                  <th style={{
+                    padding: '1rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: '600',
+                    fontSize: '0.85rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>PRODUCT</th>
                   <th style={{
                     padding: '1rem',
                     color: 'var(--text-primary)',
@@ -137,6 +168,21 @@ const OrderListScreen = () => {
                       fontSize: '0.85rem',
                       fontFamily: 'monospace'
                     }}>{order._id}</td>
+                    <td style={{ padding: '1rem' }}>
+                      {order.orderItems && order.orderItems.length > 0 && (
+                        <img
+                          src={order.orderItems[0].image}
+                          alt={order.orderItems[0].name}
+                          style={{
+                            width: '50px',
+                            height: '50px',
+                            objectFit: 'cover',
+                            borderRadius: '6px',
+                            border: '1px solid var(--border-primary)'
+                          }}
+                        />
+                      )}
+                    </td>
                     <td style={{
                       padding: '1rem',
                       color: 'var(--text-primary)',
@@ -173,30 +219,112 @@ const OrderListScreen = () => {
                       )}
                     </td>
                     <td style={{ padding: '1rem' }}>
-                      <Link to={`/order/${order._id}`}>
+                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <Link to={`/order/${order._id}`}>
+                          <button
+                            style={{
+                              background: 'var(--bg-tertiary)',
+                              border: '1px solid var(--border-primary)',
+                              color: 'var(--text-primary)',
+                              padding: '0.4rem 0.8rem',
+                              borderRadius: '6px',
+                              transition: 'all 0.2s ease',
+                              cursor: 'pointer',
+                              fontSize: '0.85rem'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.background = 'var(--accent-primary)'
+                              e.target.style.color = 'white'
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.background = 'var(--bg-tertiary)'
+                              e.target.style.color = 'var(--text-primary)'
+                            }}
+                          >
+                            <i className='fas fa-eye' style={{ marginRight: '0.3rem' }}></i>
+                            Details
+                          </button>
+                        </Link>
+                        
+                        {!order.isPaid && (
+                          <button
+                            onClick={() => markAsPaidHandler(order._id)}
+                            style={{
+                              background: 'var(--bg-tertiary)',
+                              border: '1px solid var(--accent-success)',
+                              color: 'var(--accent-success)',
+                              padding: '0.4rem 0.8rem',
+                              borderRadius: '6px',
+                              transition: 'all 0.2s ease',
+                              cursor: 'pointer',
+                              fontSize: '0.85rem'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.background = 'var(--accent-success)'
+                              e.target.style.color = 'white'
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.background = 'var(--bg-tertiary)'
+                              e.target.style.color = 'var(--accent-success)'
+                            }}
+                          >
+                            <i className='fas fa-check' style={{ marginRight: '0.3rem' }}></i>
+                            Mark Paid
+                          </button>
+                        )}
+
+                        {order.isPaid && !order.isDelivered && (
+                          <button
+                            onClick={() => markAsDeliveredHandler(order)}
+                            style={{
+                              background: 'var(--bg-tertiary)',
+                              border: '1px solid var(--accent-warning)',
+                              color: 'var(--accent-warning)',
+                              padding: '0.4rem 0.8rem',
+                              borderRadius: '6px',
+                              transition: 'all 0.2s ease',
+                              cursor: 'pointer',
+                              fontSize: '0.85rem'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.background = 'var(--accent-warning)'
+                              e.target.style.color = 'white'
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.background = 'var(--bg-tertiary)'
+                              e.target.style.color = 'var(--accent-warning)'
+                            }}
+                          >
+                            <i className='fas fa-shipping-fast' style={{ marginRight: '0.3rem' }}></i>
+                            Mark Delivered
+                          </button>
+                        )}
+
                         <button
+                          onClick={() => deleteHandler(order._id)}
                           style={{
                             background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-primary)',
-                            color: 'var(--text-primary)',
+                            border: '1px solid var(--accent-danger)',
+                            color: 'var(--accent-danger)',
                             padding: '0.4rem 0.8rem',
                             borderRadius: '6px',
                             transition: 'all 0.2s ease',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            fontSize: '0.85rem'
                           }}
                           onMouseEnter={(e) => {
-                            e.target.style.background = 'var(--accent-primary)'
+                            e.target.style.background = 'var(--accent-danger)'
                             e.target.style.color = 'white'
                           }}
                           onMouseLeave={(e) => {
                             e.target.style.background = 'var(--bg-tertiary)'
-                            e.target.style.color = 'var(--text-primary)'
+                            e.target.style.color = 'var(--accent-danger)'
                           }}
                         >
-                          <i className='fas fa-eye' style={{ marginRight: '0.3rem' }}></i>
-                          Details
+                          <i className='fas fa-trash' style={{ marginRight: '0.3rem' }}></i>
+                          Delete
                         </button>
-                      </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}

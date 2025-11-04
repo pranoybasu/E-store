@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
+import { CART_RESET } from '../constants/cartConstants'
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const cart = useSelector((state) => state.cart)
+  const [showCodConfirmation, setShowCodConfirmation] = useState(false)
 
   //   Calculate prices
   const addDecimals = (num) => {
@@ -33,11 +35,29 @@ const PlaceOrderScreen = () => {
   
   useEffect(() => {
     if(success) {
-      navigate(`/order/${order._id}`)
-      dispatch({ type: ORDER_CREATE_RESET })
+      // For Cash on Delivery, show confirmation modal
+      if(cart.paymentMethod === 'Cash on Delivery') {
+        setShowCodConfirmation(true)
+        // Auto-redirect to home after 5 seconds
+        setTimeout(() => {
+          dispatch({ type: CART_RESET })
+          dispatch({ type: ORDER_CREATE_RESET })
+          navigate('/')
+        }, 5000)
+      } else {
+        // For PayPal, redirect to order page as before
+        navigate(`/order/${order._id}`)
+        dispatch({ type: ORDER_CREATE_RESET })
+      }
     }
     // eslint-disable-next-line
   },[navigate, success])
+
+  const handleCodContinue = () => {
+    dispatch({ type: CART_RESET })
+    dispatch({ type: ORDER_CREATE_RESET })
+    navigate('/')
+  }
 
   const placeOrderHandler = () => {
     dispatch(createOrder({
@@ -52,7 +72,145 @@ const PlaceOrderScreen = () => {
   }
 
   return (
-    <div className='container' style={{ padding: '2rem 0', minHeight: '70vh' }}>
+    <>
+      {/* Cash on Delivery Confirmation Modal */}
+      {showCodConfirmation && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.85)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          padding: '1rem'
+        }}>
+          <div style={{
+            backgroundColor: 'var(--bg-secondary)',
+            border: '2px solid var(--accent-success)',
+            borderRadius: '16px',
+            padding: '2.5rem',
+            maxWidth: '500px',
+            width: '100%',
+            textAlign: 'center',
+            animation: 'fadeInScale 0.4s ease-out'
+          }}>
+            {/* Success Icon */}
+            <div style={{
+              width: '80px',
+              height: '80px',
+              margin: '0 auto 1.5rem',
+              backgroundColor: 'var(--accent-success)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              animation: 'pulse 2s infinite'
+            }}>
+              <i className="fas fa-check" style={{
+                fontSize: '2.5rem',
+                color: '#ffffff'
+              }}></i>
+            </div>
+
+            {/* Title */}
+            <h2 style={{
+              color: 'var(--text-primary)',
+              fontSize: '1.75rem',
+              fontWeight: '700',
+              marginBottom: '1rem'
+            }}>
+              Order Confirmed!
+            </h2>
+
+            {/* Order ID */}
+            <p style={{
+              color: 'var(--text-secondary)',
+              fontSize: '0.95rem',
+              marginBottom: '1.5rem'
+            }}>
+              Order ID: <span style={{
+                color: 'var(--accent-primary)',
+                fontWeight: '600',
+                fontFamily: 'monospace'
+              }}>{order?._id}</span>
+            </p>
+
+            {/* Message */}
+            <div style={{
+              backgroundColor: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: '8px',
+              padding: '1.25rem',
+              marginBottom: '1.5rem'
+            }}>
+              <i className="fas fa-money-bill-wave" style={{
+                fontSize: '1.5rem',
+                color: 'var(--accent-success)',
+                marginBottom: '0.75rem',
+                display: 'block'
+              }}></i>
+              <p style={{
+                color: 'var(--text-primary)',
+                fontWeight: '600',
+                marginBottom: '0.5rem'
+              }}>
+                Payment Method: Cash on Delivery
+              </p>
+              <p style={{
+                color: 'var(--text-secondary)',
+                fontSize: '0.9rem',
+                marginBottom: '0'
+              }}>
+                Your order has been placed successfully. Payment will be collected when you receive your order.
+              </p>
+            </div>
+
+            {/* Auto-redirect message */}
+            <p style={{
+              color: 'var(--text-secondary)',
+              fontSize: '0.85rem',
+              marginBottom: '1.5rem',
+              fontStyle: 'italic'
+            }}>
+              Redirecting to home page in 5 seconds...
+            </p>
+
+            {/* Continue Button */}
+            <button
+              onClick={handleCodContinue}
+              style={{
+                backgroundColor: 'var(--accent-success)',
+                border: 'none',
+                borderRadius: '8px',
+                color: '#ffffff',
+                padding: '0.875rem 2rem',
+                fontSize: '1rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                width: '100%'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow = '0 8px 16px rgba(48, 209, 88, 0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              <i className="fas fa-home" style={{ marginRight: '0.5rem' }}></i>
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className='container' style={{ padding: '2rem 0', minHeight: '70vh' }}>
       <CheckoutSteps step1 step2 step3 step4 />
       <div className='row'>
         <div className='col-md-8'>
@@ -298,6 +456,7 @@ const PlaceOrderScreen = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 
