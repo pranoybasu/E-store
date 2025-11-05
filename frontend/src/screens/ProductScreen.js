@@ -19,6 +19,7 @@ const ProductScreen = () => {
     const [qty, setQty] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
+    const [showBulkModal, setShowBulkModal] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -43,6 +44,13 @@ const ProductScreen = () => {
           }
         dispatch(listProductDetails(id))
     }, [dispatch, id, successProductReview] )
+
+    // Redirect if product is out of stock
+    useEffect(() => {
+        if (product && product.countInStock === 0) {
+            navigate('/')
+        }
+    }, [product, navigate])
 
     const addToCartHandler = () => {
         navigate(`/cart/${id}?qty=${qty}`)
@@ -191,6 +199,26 @@ const ProductScreen = () => {
                                     </div>
                                 </div>
                             </div>
+
+                            {product.countInStock > 0 && (
+                              <div className='list-group-item' style={{
+                                backgroundColor: 'transparent',
+                                borderColor: 'var(--border-primary)',
+                                color: 'var(--text-primary)'
+                              }}>
+                                <div className='row'>
+                                  <div className='col'>Stock:</div>
+                                  <div className='col'>
+                                    <span style={{
+                                      color: 'var(--text-secondary)',
+                                      fontWeight: '500'
+                                    }}>
+                                      {product.countInStock} {product.countInStock === 1 ? 'unit' : 'units'} available
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                             {product.countInStock > 0 && (
                     <div className='list-group-item' style={{
                       backgroundColor: 'transparent',
@@ -212,7 +240,7 @@ const ProductScreen = () => {
                               width: '100%'
                             }}
                           >
-                            {[...Array(product.countInStock).keys()].map(
+                            {[...Array(Math.min(5, product.countInStock)).keys()].map(
                               (x) => (
                                 <option
                                   key={x + 1}
@@ -250,7 +278,8 @@ const ProductScreen = () => {
                         borderRadius: '8px',
                         fontWeight: '600',
                         cursor: product.countInStock === 0 ? 'not-allowed' : 'pointer',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        marginBottom: product.countInStock > 5 ? '0.75rem' : '0'
                       }}
                       onMouseEnter={(e) => {
                         if (product.countInStock > 0) {
@@ -266,8 +295,36 @@ const ProductScreen = () => {
                       }}
                     >
                             Add To Cart
-                            </button>
-                        </div>
+                    </button>
+
+                    {product.countInStock > 5 && (
+                      <button
+                        onClick={() => setShowBulkModal(true)}
+                        type='button'
+                        style={{
+                          width: '100%',
+                          backgroundColor: 'var(--bg-tertiary)',
+                          color: 'var(--text-primary)',
+                          border: '1px solid var(--accent-primary)',
+                          padding: '0.75rem',
+                          borderRadius: '8px',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.backgroundColor = 'var(--accent-primary)';
+                          e.target.style.borderColor = '#005bb5';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.backgroundColor = 'var(--bg-tertiary)';
+                          e.target.style.borderColor = 'var(--accent-primary)';
+                        }}
+                      >
+                        Bulk Purchase ({product.countInStock} available)
+                      </button>
+                    )}
+                  </div>
                         </div>
                     </div>
                     </div>
@@ -415,6 +472,146 @@ const ProductScreen = () => {
                     </div>
                     </div>
           </div>
+
+          {/* Bulk Purchase Modal */}
+          {showBulkModal && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 9999,
+                padding: '1rem'
+              }}
+              onClick={() => setShowBulkModal(false)}
+            >
+              <div
+                style={{
+                  backgroundColor: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-primary)',
+                  borderRadius: '12px',
+                  padding: '2rem',
+                  maxWidth: '500px',
+                  width: '100%',
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 style={{
+                  color: 'var(--text-primary)',
+                  marginBottom: '1.5rem',
+                  fontSize: '1.75rem'
+                }}>
+                  Bulk Purchase Request
+                </h2>
+                
+                <div style={{
+                  backgroundColor: 'var(--bg-tertiary)',
+                  padding: '1.5rem',
+                  borderRadius: '8px',
+                  marginBottom: '1.5rem',
+                  border: '1px solid var(--border-primary)'
+                }}>
+                  <p style={{
+                    color: 'var(--text-primary)',
+                    marginBottom: '1rem',
+                    fontSize: '1.125rem'
+                  }}>
+                    <strong>{product.name}</strong>
+                  </p>
+                  <p style={{
+                    color: 'var(--text-secondary)',
+                    marginBottom: '0.5rem'
+                  }}>
+                    Available Stock: <strong style={{ color: 'var(--accent-primary)' }}>{product.countInStock} units</strong>
+                  </p>
+                  <p style={{
+                    color: 'var(--text-secondary)',
+                    marginBottom: 0
+                  }}>
+                    For bulk orders exceeding 5 units, please contact our sales team.
+                  </p>
+                </div>
+
+                <div style={{
+                  backgroundColor: 'var(--bg-tertiary)',
+                  padding: '1.5rem',
+                  borderRadius: '8px',
+                  marginBottom: '1.5rem',
+                  border: '1px solid var(--border-primary)'
+                }}>
+                  <h3 style={{
+                    color: 'var(--text-primary)',
+                    marginBottom: '1rem',
+                    fontSize: '1.125rem'
+                  }}>
+                    Contact Information:
+                  </h3>
+                  <p style={{
+                    color: 'var(--text-secondary)',
+                    marginBottom: '0.75rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}>
+                    <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>Email:</span>
+                    <a
+                      href="mailto:sales@estore.com"
+                      style={{
+                        color: 'var(--accent-primary)',
+                        textDecoration: 'none'
+                      }}
+                      onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                      onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                    >
+                      sales@estore.com
+                    </a>
+                  </p>
+                  <p style={{
+                    color: 'var(--text-secondary)',
+                    marginBottom: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}>
+                    <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>Phone:</span>
+                    <span>+1-555-0123</span>
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => setShowBulkModal(false)}
+                  style={{
+                    width: '100%',
+                    backgroundColor: 'var(--accent-primary)',
+                    color: 'var(--text-primary)',
+                    border: 'none',
+                    padding: '0.75rem',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#005bb5';
+                    e.target.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'var(--accent-primary)';
+                    e.target.style.transform = 'translateY(0)';
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </>
         ) }
        </div>

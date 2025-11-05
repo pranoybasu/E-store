@@ -14,6 +14,8 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -160,21 +162,42 @@ const ProfileScreen = () => {
                 }}>
                   Password
                 </label>
-                <input
-                  type='password'
-                  id='password'
-                  placeholder='Leave blank to keep current'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  style={{
-                    background: 'var(--bg-tertiary)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '8px',
-                    color: 'var(--text-primary)',
-                    padding: '0.75rem',
-                    width: '100%'
-                  }}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id='password'
+                    placeholder='Leave blank to keep current'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    style={{
+                      background: 'var(--bg-tertiary)',
+                      border: '1px solid var(--border-primary)',
+                      borderRadius: '8px',
+                      color: 'var(--text-primary)',
+                      padding: '0.75rem',
+                      paddingRight: '3rem',
+                      width: '100%'
+                    }}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '0.75rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--text-secondary)',
+                      cursor: 'pointer',
+                      padding: '0.25rem',
+                      fontSize: '1.1rem'
+                    }}
+                  >
+                    <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
+                  </button>
+                </div>
                 <small style={{
                   display: 'block',
                   marginTop: '0.5rem',
@@ -194,24 +217,60 @@ const ProfileScreen = () => {
                 }}>
                   Confirm Password
                 </label>
-                <input
-                  type='password'
-                  id='confirmPassword'
-                  placeholder='Confirm new password'
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  style={{
-                    background: 'var(--bg-tertiary)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '8px',
-                    color: 'var(--text-primary)',
-                    padding: '0.75rem',
-                    width: '100%'
-                  }}
-                />
-              </div>
-
-              <button
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    id='confirmPassword'
+                    placeholder='Confirm new password'
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    style={{
+                      background: 'var(--bg-tertiary)',
+                      border: '1px solid var(--border-primary)',
+                      borderRadius: '8px',
+                      color: 'var(--text-primary)',
+                      padding: '0.75rem',
+                      paddingRight: '3rem',
+                      width: '100%'
+                    }}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '0.75rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--text-secondary)',
+                      cursor: 'pointer',
+                      padding: '0.25rem',
+                      fontSize: '1.1rem'
+                    }}
+                  >
+                    <i className={showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
+                  </button>
+                </div>
+                {password && confirmPassword && (
+                  <small style={{
+                    display: 'block',
+                    marginTop: '0.5rem',
+                    color: password === confirmPassword ? '#28a745' : '#dc3545',
+                    fontSize: '0.85rem',
+                    fontWeight: '500'
+                  }}>
+                    {password === confirmPassword ? (
+                      <><i className='fas fa-check-circle'></i> Passwords match</>
+                    ) : (
+                      <><i className='fas fa-times-circle'></i> Passwords do not match</>
+                    )}
+                  </small>
+                  )}
+                </div>
+  
+                <button
                 type='submit'
                 className='btn btn-primary'
                 style={{
@@ -273,6 +332,7 @@ const ProfileScreen = () => {
                     <tr style={{ background: 'var(--bg-tertiary)' }}>
                       <th style={{ color: 'var(--text-primary)', padding: '1rem' }}>ID</th>
                       <th style={{ color: 'var(--text-primary)', padding: '1rem' }}>DATE</th>
+                      <th style={{ color: 'var(--text-primary)', padding: '1rem' }}>PRODUCTS</th>
                       <th style={{ color: 'var(--text-primary)', padding: '1rem' }}>TOTAL</th>
                       <th style={{ color: 'var(--text-primary)', padding: '1rem' }}>PAID</th>
                       <th style={{ color: 'var(--text-primary)', padding: '1rem' }}>DELIVERED</th>
@@ -284,6 +344,56 @@ const ProfileScreen = () => {
                       <tr key={order._id} style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border-primary)' }}>
                         <td style={{ color: 'var(--text-secondary)', padding: '1rem' }}>{order._id}</td>
                         <td style={{ color: 'var(--text-secondary)', padding: '1rem' }}>{order.createdAt.substring(0, 10)}</td>
+                        <td style={{ padding: '1rem' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            {order.orderItems && order.orderItems.map((item, index) => (
+                              <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                {item.product && item.product.image ? (
+                                  <img
+                                    src={item.product.image}
+                                    alt={item.product.name || item.name}
+                                    style={{
+                                      width: '40px',
+                                      height: '40px',
+                                      objectFit: 'cover',
+                                      borderRadius: '6px',
+                                      border: '1px solid var(--border-primary)'
+                                    }}
+                                  />
+                                ) : (
+                                  <div style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    backgroundColor: 'var(--bg-tertiary)',
+                                    borderRadius: '6px',
+                                    border: '1px solid var(--border-primary)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                  }}>
+                                    <i className='fas fa-image' style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}></i>
+                                  </div>
+                                )}
+                                <div style={{ flex: 1 }}>
+                                  <div style={{
+                                    color: 'var(--text-primary)',
+                                    fontSize: '0.875rem',
+                                    fontWeight: '500',
+                                    marginBottom: '0.125rem'
+                                  }}>
+                                    {item.product && item.product.name ? item.product.name : item.name}
+                                  </div>
+                                  <div style={{
+                                    color: 'var(--text-secondary)',
+                                    fontSize: '0.75rem'
+                                  }}>
+                                    Qty: {item.qty}
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </td>
                         <td style={{ color: 'var(--accent-primary)', fontWeight: '600', padding: '1rem' }}>${order.totalPrice}</td>
                         <td style={{ padding: '1rem' }}>
                           {order.isPaid ? (
@@ -326,7 +436,7 @@ const ProfileScreen = () => {
                       </tr>
                     )) : (
                       <tr>
-                        <td colSpan="6" style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '2rem' }}>
+                        <td colSpan="7" style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '2rem' }}>
                           No orders found
                         </td>
                       </tr>

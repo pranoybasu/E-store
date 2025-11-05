@@ -68,7 +68,7 @@ const OrderScreen = () => {
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
-    } else if (!order.isPaid && order.paymentMethod === 'PayPal') {
+    } else if (!order.isPaid && (order.paymentMethod === 'PayPal' || order.paymentMethod === 'PayPal or Credit Card')) {
       if (!window.paypal) {
         addPayPalScript()
       } else {
@@ -308,7 +308,7 @@ const OrderScreen = () => {
 
               {!order.isPaid && (
                 <div style={{ marginTop: '1.5rem' }}>
-                  {order.paymentMethod === 'PayPal' ? (
+                  {(order.paymentMethod === 'PayPal' || order.paymentMethod === 'PayPal or Credit Card') ? (
                     <>
                       {loadingPay && <Loader />}
                       {!sdkReady ? <Loader /> : (

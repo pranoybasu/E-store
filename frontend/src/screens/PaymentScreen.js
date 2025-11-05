@@ -15,7 +15,7 @@ const PaymentScreen = () => {
         navigate('/shipping')
     }
 
-    const [ paymentMethod, setPaymentMethod ] = useState('PayPal')
+    const [ paymentMethod, setPaymentMethod ] = useState('PayPal or Credit Card')
 
     const dispatch = useDispatch()
 
@@ -63,23 +63,23 @@ const PaymentScreen = () => {
                         <div className='col'>
                             {/* PayPal / Credit Card Option */}
                             <div style={{
-                                backgroundColor: paymentMethod === 'PayPal' ? 'var(--bg-tertiary)' : 'transparent',
-                                border: `2px solid ${paymentMethod === 'PayPal' ? 'var(--accent-primary)' : 'var(--border-primary)'}`,
+                                backgroundColor: paymentMethod === 'PayPal or Credit Card' ? 'var(--bg-tertiary)' : 'transparent',
+                                border: `2px solid ${paymentMethod === 'PayPal or Credit Card' ? 'var(--accent-primary)' : 'var(--border-primary)'}`,
                                 borderRadius: '8px',
                                 padding: '1rem',
                                 marginBottom: '1rem',
                                 cursor: 'pointer',
                                 transition: 'all 0.3s ease'
                             }}
-                            onClick={() => setPaymentMethod('PayPal')}
+                            onClick={() => setPaymentMethod('PayPal or Credit Card')}
                             onMouseEnter={(e) => {
-                                if (paymentMethod !== 'PayPal') {
+                                if (paymentMethod !== 'PayPal or Credit Card') {
                                     e.currentTarget.style.borderColor = 'var(--accent-primary)'
                                     e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'
                                 }
                             }}
                             onMouseLeave={(e) => {
-                                if (paymentMethod !== 'PayPal') {
+                                if (paymentMethod !== 'PayPal or Credit Card') {
                                     e.currentTarget.style.borderColor = 'var(--border-primary)'
                                     e.currentTarget.style.backgroundColor = 'transparent'
                                 }
@@ -96,8 +96,8 @@ const PaymentScreen = () => {
                                         type='radio'
                                         id='PayPal'
                                         name='paymentMethod'
-                                        value='PayPal'
-                                        checked={paymentMethod === 'PayPal'}
+                                        value='PayPal or Credit Card'
+                                        checked={paymentMethod === 'PayPal or Credit Card'}
                                         onChange={(e) => setPaymentMethod(e.target.value)}
                                         style={{
                                             marginRight: '0.75rem',

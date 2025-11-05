@@ -21,6 +21,7 @@ const ProductEditScreen = () => {
   const [category, setCategory] = useState('')
   const [countInStock, setCountInStock] = useState(0)
   const [description, setDescription] = useState('')
+  const [shippingCost, setShippingCost] = useState(0)
   const [uploading, setUploading] = useState(false)
 
 
@@ -51,6 +52,7 @@ const ProductEditScreen = () => {
         setCategory(product.category)
         setCountInStock(product.countInStock)
         setDescription(product.description)
+        setShippingCost(product.shippingCost || 0)
       }
     }
   }, [dispatch, navigate, productId, product, successUpdate])
@@ -90,6 +92,7 @@ const ProductEditScreen = () => {
         category,
         description,
         countInStock,
+        shippingCost,
       })
     )
   }
@@ -294,6 +297,30 @@ const ProductEditScreen = () => {
                 placeholder='Enter category'
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                style={{
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-primary)',
+                  color: 'var(--text-primary)',
+                  padding: '0.75rem',
+                  borderRadius: '8px',
+                  width: '100%',
+                  fontSize: '1rem'
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
+                color: 'var(--text-primary)',
+                fontWeight: '500',
+                marginBottom: '0.5rem',
+                display: 'block'
+              }}>Shipping Cost</label>
+              <input
+                type='number'
+                placeholder='Enter shipping cost'
+                value={shippingCost}
+                onChange={(e) => setShippingCost(e.target.value)}
                 style={{
                   background: 'var(--bg-tertiary)',
                   border: '1px solid var(--border-primary)',

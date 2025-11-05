@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import Rating from './Rating'
 
 const Product = ({ product }) => {
+    const isSoldOut = product.countInStock === 0
+
     return (
         <div
             className='product-card fade-in'
@@ -16,45 +18,93 @@ const Product = ({ product }) => {
                 overflow: 'hidden',
                 height: '100%',
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                opacity: isSoldOut ? 0.7 : 1,
+                position: 'relative'
             }}
             onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)'
-                e.currentTarget.style.boxShadow = 'var(--shadow-md)'
-                e.currentTarget.style.borderColor = 'var(--border-hover)'
+                if (!isSoldOut) {
+                    e.currentTarget.style.transform = 'translateY(-8px)'
+                    e.currentTarget.style.boxShadow = 'var(--shadow-md)'
+                    e.currentTarget.style.borderColor = 'var(--border-hover)'
+                }
             }}
             onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
-                e.currentTarget.style.borderColor = 'var(--border-primary)'
+                if (!isSoldOut) {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
+                    e.currentTarget.style.borderColor = 'var(--border-primary)'
+                }
             }}
         >
-            <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
-                <div style={{
-                    width: '100%',
-                    height: '280px',
-                    overflow: 'hidden',
-                    background: 'var(--bg-tertiary)',
-                    position: 'relative'
-                }}>
-                    <img
-                        src={product.image}
-                        alt={product.name}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            transition: 'transform var(--transition-base)'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'scale(1.05)'
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'scale(1)'
-                        }}
-                    />
+            {isSoldOut ? (
+                <div style={{ textDecoration: 'none', cursor: 'not-allowed' }}>
+                    <div style={{
+                        width: '100%',
+                        height: '280px',
+                        overflow: 'hidden',
+                        background: 'var(--bg-tertiary)',
+                        position: 'relative'
+                    }}>
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                filter: isSoldOut ? 'grayscale(50%)' : 'none'
+                            }}
+                        />
+                        {isSoldOut && (
+                            <div style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                backgroundColor: 'rgba(220, 53, 69, 0.9)',
+                                color: '#fff',
+                                padding: '0.75rem 2rem',
+                                borderRadius: '8px',
+                                fontWeight: '700',
+                                fontSize: '1.25rem',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)'
+                            }}>
+                                SOLD OUT
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </Link>
+            ) : (
+                <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
+                    <div style={{
+                        width: '100%',
+                        height: '280px',
+                        overflow: 'hidden',
+                        background: 'var(--bg-tertiary)',
+                        position: 'relative'
+                    }}>
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                transition: 'transform var(--transition-base)'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'scale(1.05)'
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'scale(1)'
+                            }}
+                        />
+                    </div>
+                </Link>
+            )}
 
             <div style={{
                 padding: 'var(--spacing-md)',

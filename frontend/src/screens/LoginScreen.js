@@ -9,6 +9,7 @@ import { login } from '../actions/userAction';
 const LoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -72,32 +73,53 @@ const LoginScreen = () => {
                         }}
                     />
                 </div>
-
-                <div className='form-group' style={{ marginBottom: '1.5rem' }}>
-                    <label htmlFor='password' style={{
-                        color: 'var(--text-primary)',
-                        fontWeight: '500',
-                        marginBottom: '0.5rem',
-                        display: 'block'
-                    }}>
-                        Password
-                    </label>
-                    <input
-                        type='password'
-                        id='password'
-                        className='form-control'
-                        placeholder='Enter your password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{
-                            background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-primary)',
-                            borderRadius: '8px',
-                            color: 'var(--text-primary)',
-                            padding: '0.75rem'
-                        }}
-                    />
-                </div>
+<div className='form-group' style={{ marginBottom: '1.5rem', position: 'relative' }}>
+    <label htmlFor='password' style={{
+        color: 'var(--text-primary)',
+        fontWeight: '500',
+        marginBottom: '0.5rem',
+        display: 'block'
+    }}>
+        Password
+    </label>
+    <div style={{ position: 'relative' }}>
+        <input
+            type={showPassword ? 'text' : 'password'}
+            id='password'
+            className='form-control'
+            placeholder='Enter your password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{
+                background: 'var(--bg-tertiary)',
+                border: '1px solid var(--border-primary)',
+                borderRadius: '8px',
+                color: 'var(--text-primary)',
+                padding: '0.75rem',
+                paddingRight: '3rem',
+                width: '100%'
+            }}
+        />
+        <button
+            type='button'
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+                position: 'absolute',
+                right: '0.75rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-secondary)',
+                cursor: 'pointer',
+                padding: '0.25rem',
+                fontSize: '1.1rem'
+            }}
+        >
+            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
+        </button>
+    </div>
+</div>
 
                 <button
                     type='submit'

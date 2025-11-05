@@ -4,8 +4,10 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import cors from 'cors'
 import morgan from 'morgan'
+import cron from 'node-cron'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+import Order from './models/orderModel.js'
 
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
@@ -16,6 +18,25 @@ import uploadRoutes from './routes/uploadRoutes.js'
 dotenv.config()
 
 connectDB()
+
+// Cron job to delete unpaid orders older than 30 days (PayPal/Credit Card only)
+// Runs daily at 2:00 AM
+cron.schedule('0 2 * * *', async () => {
+  try {
+    const thirtyDaysAgo = new Date()
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+
+    const result = await Order.deleteMany({
+      isPaid: false,
+      createdAt: { $lt: thirtyDaysAgo },
+      paymentMethod: { $ne: 'Cash on Delivery' }
+    })
+
+    console.log(`[CRON] Deleted ${result.deletedCount} unpaid orders older than 30 days`.yellow)
+  } catch (error) {
+    console.error(`[CRON] Error deleting old unpaid orders: ${error.message}`.red)
+  }
+})
 
 //run server
 const app = express()

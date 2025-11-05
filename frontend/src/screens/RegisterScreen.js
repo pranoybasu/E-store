@@ -12,6 +12,8 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState(null)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -117,9 +119,9 @@ const RegisterScreen = () => {
                             padding: '0.75rem'
                         }}
                     />
-                </div>
-
-                <div className='form-group' style={{ marginBottom: '1.5rem' }}>
+                  </div>
+    
+                  <div className='form-group' style={{ marginBottom: '1.5rem' }}>
                     <label htmlFor='password' style={{
                         color: 'var(--text-primary)',
                         fontWeight: '500',
@@ -128,21 +130,43 @@ const RegisterScreen = () => {
                     }}>
                         Password
                     </label>
-                    <input
-                        type='password'
-                        id='password'
-                        className='form-control'
-                        placeholder='Enter a strong password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{
-                            background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-primary)',
-                            borderRadius: '8px',
-                            color: 'var(--text-primary)',
-                            padding: '0.75rem'
-                        }}
-                    />
+                    <div style={{ position: 'relative' }}>
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            id='password'
+                            className='form-control'
+                            placeholder='Enter a strong password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            style={{
+                                background: 'var(--bg-tertiary)',
+                                border: '1px solid var(--border-primary)',
+                                borderRadius: '8px',
+                                color: 'var(--text-primary)',
+                                padding: '0.75rem',
+                                paddingRight: '3rem',
+                                width: '100%'
+                            }}
+                        />
+                        <button
+                            type='button'
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{
+                                position: 'absolute',
+                                right: '0.75rem',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                background: 'none',
+                                border: 'none',
+                                color: 'var(--text-secondary)',
+                                cursor: 'pointer',
+                                padding: '0.25rem',
+                                fontSize: '1.1rem'
+                            }}
+                        >
+                            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
+                        </button>
+                    </div>
                     <small style={{
                         display: 'block',
                         marginTop: '0.5rem',
@@ -162,21 +186,58 @@ const RegisterScreen = () => {
                     }}>
                         Confirm Password
                     </label>
-                    <input
-                        type='password'
-                        id='confirmPassword'
-                        className='form-control'
-                        placeholder='Re-enter your password'
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        style={{
-                            background: 'var(--bg-tertiary)',
-                            border: '1px solid var(--border-primary)',
-                            borderRadius: '8px',
-                            color: 'var(--text-primary)',
-                            padding: '0.75rem'
-                        }}
-                    />
+                    <div style={{ position: 'relative' }}>
+                        <input
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            id='confirmPassword'
+                            className='form-control'
+                            placeholder='Re-enter your password'
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            style={{
+                                background: 'var(--bg-tertiary)',
+                                border: '1px solid var(--border-primary)',
+                                borderRadius: '8px',
+                                color: 'var(--text-primary)',
+                                padding: '0.75rem',
+                                paddingRight: '3rem',
+                                width: '100%'
+                            }}
+                        />
+                        <button
+                            type='button'
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            style={{
+                                position: 'absolute',
+                                right: '0.75rem',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                background: 'none',
+                                border: 'none',
+                                color: 'var(--text-secondary)',
+                                cursor: 'pointer',
+                                padding: '0.25rem',
+                                fontSize: '1.1rem'
+                            }}
+                        >
+                            <i className={showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
+                        </button>
+                    </div>
+                    {password && confirmPassword && (
+                        <small style={{
+                            display: 'block',
+                            marginTop: '0.5rem',
+                            color: password === confirmPassword ? '#28a745' : '#dc3545',
+                            fontSize: '0.85rem',
+                            fontWeight: '500'
+                        }}>
+                            {password === confirmPassword ? (
+                                <><i className='fas fa-check-circle'></i> Passwords match</>
+                            ) : (
+                                <><i className='fas fa-times-circle'></i> Passwords do not match</>
+                            )}
+                        </small>
+                    )}
                 </div>
 
                 <button
